@@ -1,0 +1,68 @@
+$theme-colors: (
+  'success': red,
+);
+$btnColor: #e66161;
+
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+
+header {
+  height: 84px;
+  border-top-width: 3px;
+  border-top-style: solid;
+  border-top-color: $btnColor;
+  align-content: center;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 10px 50px rgba(238, 231, 231, 0.233);
+  position: sticky;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  font-size: 25px;
+  font-weight: 10px;
+  .navbar {
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0);
+    .nav-link {
+      display: flex;
+      align-items: center;
+      height: 81px;
+      padding: 0;
+    }
+    li {
+      margin: auto;
+      color: #e3e3e3;
+      &:visited {
+        color: #e3e3e3;
+      }
+      .dropdown-item {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .active {
+    border-bottom: 4px solid $btnColor;
+  }
+
+  .header__logo {
+    float: left;
+    filter: contrast(1.25);
+    img {
+      height: 65px;
+      outline-style: none;
+      transition: transform 0.5s ease;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+footer {
+  background-color: #2c2c2c;
+  color: white;
+  text-align: center;
+  margin-top: 300px;
+  font-style: italic;
+}
