@@ -7,6 +7,7 @@
 <script>
     export default {
         layout: "default",
+        name: "Shop"
     };
 </script>
 
