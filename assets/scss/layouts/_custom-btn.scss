@@ -1,0 +1,36 @@
+//Variables
+$btnColorLight: #e66161;
+$btnColor: #e54f60;
+$btnHover: white;
+
+@mixin btnEff {
+  display: inline-block;
+  text-decoration: none;
+  background-color: $btnHover;
+  border-color: $btnColor;
+  color: $btnColor;
+}
+
+.btn-danger {
+  display: inline-block !important;
+  background-color: $btnColor;
+  border-style: inset;
+  border-radius: 80px;
+  border-width: 3px;
+  border-color: $btnColor !important;
+  font-size: 25px;
+  text-decoration: none !important;
+  max-width: auto;
+  &:hover {
+    @include btnEff();
+    border-style: outset;
+  }
+  &:active {
+    @include btnEff();
+    border-style: outset;
+  }
+  &:focus {
+    @include btnEff();
+    border-style: outset;
+  }
+}

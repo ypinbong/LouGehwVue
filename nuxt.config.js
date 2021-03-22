@@ -10,7 +10,28 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
+    script: [
+      {
+        src: "https://code.jquery.com/jquery-3.3.1.min.js"
+      }
+    ],
+    script: [
+      {
+        src: "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      }
+    ],
+    script: [
+      {
+        src: "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      }
+    ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      {
+        rel: "stylesheet",
+        href: "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');",
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
