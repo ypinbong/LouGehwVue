@@ -32,6 +32,7 @@ export default {
         href: "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');",
       },
     ],
+    
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -61,8 +62,15 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     //nuxtjs-authentication
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    //@nuxt/content
+    '@nuxt/content',
   ],
+
+  content: {
+    //options
+  },
+
   auth: {
     // Options
   },

@@ -1,6 +1,5 @@
 <template>
     <div>
-        //https://content.nuxtjs.org/
         <nuxt />
     </div>
 </template>

@@ -44,23 +44,32 @@
               </form>
             </b-modal>
           </div>
+          <ItemTable />
         </div>
       </div>
     </div>
+    
+    
 </template>
 
 <script>
+
+import ItemTable from "~/components/ItemTable.vue";
+
     export default {
         layout: "default",
         name: "Shop",
         data() {
         return {
-        form: {
-          email: '',
-          name: '',
-        },
-      }
-    },
+          form: {
+            email: '',
+            name: '',
+          },
+        }
+      },
+      module: {
+        ItemTable,
+      },
     };
     
 </script>
