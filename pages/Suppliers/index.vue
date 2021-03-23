@@ -39,6 +39,7 @@
             </b-modal>
           </div>
         </div>
+        <SupTable />
       </div>
     </div>
 </template>

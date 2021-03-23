@@ -39,6 +39,7 @@
             </b-modal>
           </div>
         </div>
+        <CustTable />
       </div>
     </div>
 </template>

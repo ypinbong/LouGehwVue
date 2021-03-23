@@ -3,7 +3,7 @@
     
     <input class="searchBar mb-3" type="search" v-model="filter" @input="$fetch" placeholder="Type to search..."/>
     <b-table
-      :items="CustData"
+      :items="SupData"
       :fields="fields"
       :filter="filter"
       :sort-by.sync="sortBy"
@@ -25,33 +25,33 @@
 
 <script>
 
-import CustData from '~/content/CustData/custData.json'
+import SupData from '~/content/SupData/supData.json'
 
     export default {
         data() {
             return {
-                CustData:[],
+                SupData:[],
                 filter: '',
                 perPage: 10,
                 currentPage:1,
                 // sortBy: 'id',
                 // sortDesc: false,
                 fields: [
-                    { key: 'custid', sortable: true },
-                    { key: 'custName', sortable: true },
-                    { key: 'custAddress', sortable: true },
-                    { key: 'custContact#', sortable: false },
-                    { key: 'custStatus', sortable: true },
+                    { key: 'supid', sortable: true },
+                    { key: 'supName', sortable: true },
+                    { key: 'supAddress', sortable: true },
+                    { key: 'supContact#', sortable: false },
+                    { key: 'supStatus', sortable: true },
                 ],
             }
         },
         computed:{
             rows() {
-                return this.CustData.length
+                return this.SupData.length
             }
         },
         async fetch() {
-            this.CustData = await this.$content('CustData')
+            this.SupData = await this.$content('SupData')
             .search(this.q)
             .fetch()
         }

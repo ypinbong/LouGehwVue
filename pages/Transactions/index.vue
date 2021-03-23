@@ -17,6 +17,7 @@
             <NuxtLink class="btn-danger mt-3 px-3 py-2" to="/makeTransactions">Make a Transaction</NuxtLink>
           </div>
         </div>
+        <TransTable />
       </div>
     </div>
 </template>

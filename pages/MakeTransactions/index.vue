@@ -11,14 +11,21 @@
           />
           <h1 class="text-center mt-3">Add a New Transaction</h1>
         </div>
+        <MakeTransactionForm />
       </div>
     </div>
 </template>
 
 <script>
+
+import MakeTransactionForm from "~/components/MakeTransactionForm.vue";
+
     export default {
         layout: "default",
         name: "MakeTransactions",
+        component:{
+          MakeTransactionForm
+        }
     };
 </script>
 

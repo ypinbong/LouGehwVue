@@ -23,6 +23,7 @@
                 <div>
                   <img class="mb-3 col-12 text-center" src="undraw_empty_cart_co35.svg" alt="" width="200" height="120">
                 </div>
+                <div class="mx-5">
                 <div class="form-group">
                     <input type="text" class="form-control"  placeholder="Item Name...">
                 </div>
@@ -38,9 +39,15 @@
                 <div class="form-group">
                     <input type="text" class="form-control"  placeholder="Price...">
                 </div>
-                <button class="btn-danger col-12 text-center mt-3 py-2" v-b-modal.modal-1>
+                <b-row align-h="center">
+                  <b-col cols='4' class="text-center">
+                <button class="btn-danger mt-3 py-2" v-b-modal.modal-1>
                   Add<span>&plus;</span>
                 </button>
+                  </b-col>
+
+                </b-row>
+                </div>
               </form>
             </b-modal>
           </div>

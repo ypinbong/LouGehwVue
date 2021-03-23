@@ -10,7 +10,7 @@
 }
 
 header {
-  background-color: #3e4239;
+  background-color: #1d1c1c;
   color: white;
 }
 
@@ -39,7 +39,7 @@ header {
   background-color: #3e4239 !important;
 }
 
-input {
+.form-control {
   @include inputBar();
   border-style: none !important;
 }
