@@ -32,9 +32,13 @@
                 <div class="form-group">
                     <input type="text" class="form-control"  placeholder="Contact #...">
                 </div>
-                <button class="btn-danger col-12 text-center mt-3 px-3 py-2" v-b-modal.modal-1>
-                  Add<span>&plus;</span>
-                </button>
+                <b-row align-h="center">
+                  <b-col cols='6' class="text-center">
+                    <button class="btn-danger mt-3 py-2" v-b-modal.modal-1>
+                      Add<span>&plus;</span>
+                    </button>
+                  </b-col>
+                </b-row>
               </form>
             </b-modal>
           </div>

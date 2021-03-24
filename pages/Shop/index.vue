@@ -40,12 +40,11 @@
                     <input type="text" class="form-control"  placeholder="Price...">
                 </div>
                 <b-row align-h="center">
-                  <b-col cols='4' class="text-center">
-                <button class="btn-danger mt-3 py-2" v-b-modal.modal-1>
-                  Add<span>&plus;</span>
-                </button>
+                  <b-col cols='6' class="text-center">
+                    <button class="btn-danger mt-3 py-2" v-b-modal.modal-1>
+                      Add<span>&plus;</span>
+                    </button>
                   </b-col>
-
                 </b-row>
                 </div>
               </form>

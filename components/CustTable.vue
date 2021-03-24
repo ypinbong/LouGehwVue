@@ -12,10 +12,17 @@
       :current-page="currentPage"
       responsive="sm"
       bg-white text-dark
-    ></b-table>
+    >
+    
+        <template #cell(action)="data">
+            <b-button size="sm" @click="" class="mr-2">
+                edit
+            </b-button>
+        </template>
+
+    </b-table>
     <b-pagination
       v-model="currentPage"
-      pills
       :total-rows="rows"
       :per-page="perPage"
       aria-controls="my-table"
@@ -37,11 +44,12 @@ import CustData from '~/content/CustData/custData.json'
                 // sortBy: 'id',
                 // sortDesc: false,
                 fields: [
-                    { key: 'custid', sortable: true },
-                    { key: 'custName', sortable: true },
-                    { key: 'custAddress', sortable: true },
-                    { key: 'custContact#', sortable: false },
-                    { key: 'custStatus', sortable: true },
+                    { key: 'custid', label: 'ID', sortable: true },
+                    { key: 'custName', label: 'Name', sortable: true },
+                    { key: 'custAddress', label: 'Address', sortable: true },
+                    { key: 'custContact#', label: 'Contact#', sortable: false },
+                    { key: 'custStatus', label: 'Status', sortable: true },
+                    { key: 'action', label: 'Action', sortable: false },
                 ],
             }
         },

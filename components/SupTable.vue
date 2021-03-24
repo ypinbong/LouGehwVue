@@ -12,10 +12,17 @@
       :current-page="currentPage"
       responsive="sm"
       bg-white text-dark
-    ></b-table>
+    >
+    
+        <template #cell(action)="data">
+            <b-button size="sm" @click="" class="mr-2">
+                edit
+            </b-button>
+        </template>
+    
+    </b-table>
     <b-pagination
       v-model="currentPage"
-      pills
       :total-rows="rows"
       :per-page="perPage"
       aria-controls="my-table"
@@ -37,11 +44,12 @@ import SupData from '~/content/SupData/supData.json'
                 // sortBy: 'id',
                 // sortDesc: false,
                 fields: [
-                    { key: 'supid', sortable: true },
-                    { key: 'supName', sortable: true },
-                    { key: 'supAddress', sortable: true },
-                    { key: 'supContact#', sortable: false },
-                    { key: 'supStatus', sortable: true },
+                    { key: 'supid', label: 'ID', sortable: true },
+                    { key: 'supName', label: 'Name', sortable: true },
+                    { key: 'supAddress', label: 'Address', sortable: true },
+                    { key: 'supContact#', label: 'Contact#', sortable: false },
+                    { key: 'supStatus', label: 'Status', sortable: true },
+                    { key: 'action', label: 'Action', sortable: false },
                 ],
             }
         },

@@ -21,6 +21,7 @@ $btnHover: white;
   font-size: 25px;
   text-decoration: none !important;
   max-width: auto;
+  padding: 15px;
   &:hover {
     @include btnEff();
     border-style: outset;

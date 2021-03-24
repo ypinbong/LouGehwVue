@@ -3,6 +3,9 @@
     
     <input class="searchBar mb-3" type="search" v-model="filter" @input="$fetch" placeholder="Type to search..."/>
     <b-table
+        id="table"
+        data-toggle="table"
+        data-search="true"
         :items="ItemData"
         :fields="fields"
         :filter="filter"
@@ -12,10 +15,15 @@
         :current-page="currentPage"
         responsive="sm"
         bg-white text-dark
-    ></b-table>
+    >
+        <template #cell(action)="data">
+            <b-button size="sm" @click="" class="mr-2">
+             edit
+            </b-button>
+        </template>
+    </b-table>
     <b-pagination
         v-model="currentPage"
-        pills
         :total-rows="rows"
         :per-page="perPage"
         aria-controls="my-table"
@@ -35,13 +43,14 @@ import ItemData from '~/content/ItemData/itemData.json'
                 perPage: 10,
                 currentPage:1,
                 fields: [
-                    { key: 'id', sortable: true },
-                    { key: 'name', sortable: true },
-                    { key: 'barcode', sortable: true },
-                    { key: 'description', sortable: false },
-                    { key: 'supplier', sortable: true },
-                    { key: 'quantity', sortable: true },
-                    { key: 'price', sortable: true },
+                    { key: 'id', label: 'ID', sortable: true },
+                    { key: 'name',label: 'Name', sortable: true },
+                    { key: 'barcode', label: 'Barcode#', sortable: true },
+                    { key: 'description', label: 'Description', sortable: false },
+                    { key: 'supplier', label: 'Supplier', sortable: true },
+                    { key: 'quantity', label: 'Qty', sortable: true },
+                    { key: 'price', label: 'Price', sortable: true },
+                    { key: 'action', label: 'Action', sortable: false },
                 ],
             }
         },
