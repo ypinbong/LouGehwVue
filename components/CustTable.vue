@@ -13,7 +13,6 @@
       responsive="sm"
       bg-white text-dark
     >
-    
         <template #cell(action)="data">
             <b-button size="sm" @click="" class="mr-2">
                 edit

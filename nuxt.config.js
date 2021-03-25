@@ -90,6 +90,7 @@ export default {
   build: {},
 
   server: {
+    host: '172.16.4.170',
     port: 333
   }
 }

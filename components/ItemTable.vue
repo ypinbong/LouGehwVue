@@ -3,9 +3,6 @@
     
     <input class="searchBar mb-3" type="search" v-model="filter" @input="$fetch" placeholder="Type to search..."/>
     <b-table
-        id="table"
-        data-toggle="table"
-        data-search="true"
         :items="ItemData"
         :fields="fields"
         :filter="filter"
@@ -17,10 +14,12 @@
         bg-white text-dark
     >
         <template #cell(action)="data">
-            <b-button size="sm" @click="" class="mr-2">
+            <b-button size="sm" class="mr-2" v-b-modal="'modal-edit'">
              edit
             </b-button>
+            
         </template>
+        
     </b-table>
     <b-pagination
         v-model="currentPage"
