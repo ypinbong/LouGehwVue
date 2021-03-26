@@ -46,7 +46,7 @@ import CustData from '~/content/CustData/custData.json'
                     { key: 'custid', label: 'ID', sortable: true },
                     { key: 'custName', label: 'Name', sortable: true },
                     { key: 'custAddress', label: 'Address', sortable: true },
-                    { key: 'custContact#', label: 'Contact#', sortable: false },
+                    { key: 'custContact', label: 'Contact#', sortable: false },
                     { key: 'custStatus', label: 'Status', sortable: true },
                     { key: 'action', label: 'Action', sortable: false },
                 ],

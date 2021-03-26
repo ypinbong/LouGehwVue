@@ -1,0 +1,9 @@
+GET  http://172.16.4.211:24/customers/list
+Content-Type: application/json
+
+{
+    "custName": "Yong Pin Bong",
+    "custContact": "9482938472",
+    "custAddress": "Basin Asa",
+    "custStatus": "Inactive"
+}
