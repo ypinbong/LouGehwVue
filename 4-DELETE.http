@@ -1,0 +1,9 @@
+DELETE http://172.16.4.211:24/customers/list/id#
+Content-Type: application/json
+
+{
+"custName": "Karlo Kombata",
+"custContact": "(083) 2917107",
+"custAddress": "Basin Asa",
+"custStatus": "Inactive"
+}

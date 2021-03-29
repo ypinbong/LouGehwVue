@@ -13,11 +13,11 @@
         responsive="sm"
         bg-white text-dark
     >
+    
         <template #cell(action)="data">
             <b-button size="sm" class="mr-2" v-b-modal="'modal-edit'">
              edit
             </b-button>
-            
         </template>
         
     </b-table>

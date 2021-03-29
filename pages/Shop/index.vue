@@ -16,7 +16,7 @@
               Add<span>&plus;</span>
             </button>
 
-            <b-modal class="modalContainer" id="modal-1" centered title="Add an Item Form" header-class="justify-content-center" no-close-on-backdrop no-close-on-esc hide-footer>
+            <b-modal class="modalContainer" id="modal-1" centered title="Add an Item Form" header-class="justify-content-center" no-close-on-backdrop hide-footer>
               <form action="" method="post">
                 <div>
                   <img class="mb-3 col-12 text-center" src="undraw_empty_cart_co35.svg" alt="" width="200" height="120">
@@ -47,10 +47,10 @@
             </b-modal>
           </div>
           <ItemTable />
-          <b-modal class="modalContainer" id="modal-edit" centered title="Fill in customer details" header-class="justify-content-center" no-close-on-backdrop no-close-on-esc hide-footer>
+          <b-modal class="modalContainer" id="modal-edit" centered title="Fill in customer details" header-class="justify-content-center" no-close-on-backdrop hide-footer>
               <form action="" method="post">
                 <div>
-                <img class="mb-3 col-12 text-center" src="undraw_Add_user_re_5oib.svg" alt="" width="200" height="120">
+                    <img class="mb-3 col-12 text-center" src="undraw_Add_user_re_5oib.svg" alt="" width="200" height="120">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control"  placeholder="Name...">
@@ -63,7 +63,7 @@
                 </div>
                 <b-row align-h="center">
                   <b-col cols='6' class="text-center">
-                    <button class="btn-danger mt-3 py-2" v-b-modal.modal-1>
+                    <button class="btn-danger mt-3 py-2" v-b-modal.modal-edit>
                       Add<span>&plus;</span>
                     </button>
                   </b-col>

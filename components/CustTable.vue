@@ -1,32 +1,32 @@
 <template>
     <div class="overflow-auto my-4">
     
-    <input class="searchBar mb-3" type="search" v-model="filter" @input="$fetch" placeholder="Type to search..."/>
-    <b-table
-      :items="CustData"
-      :fields="fields"
-      :filter="filter"
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
-      :per-page="perPage"
-      :current-page="currentPage"
-      responsive="sm"
-      bg-white text-dark
-    >
-        <template #cell(action)="data">
-            <b-button size="sm" @click="" class="mr-2">
-                edit
+        <input class="searchBar mb-3" type="search" v-model="filter" @input="$fetch" placeholder="Type to search..."/>
+        <b-table
+        :items="CustData"
+        :fields="fields"
+        :filter="filter"
+        :sort-by.sync="sortBy"
+        :sort-desc.sync="sortDesc"
+        :per-page="perPage"
+        :current-page="currentPage"
+        responsive="sm"
+        bg-white text-dark
+        >
+            <template #cell(action)="data">
+                <b-button size="sm" class="mr-2" v-b-modal="'modal-edit'">
+             edit
             </b-button>
-        </template>
+            </template>
 
-    </b-table>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-table"
-    ></b-pagination>
-  </div>
+        </b-table>
+        <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="my-table"
+        ></b-pagination>
+    </div>
 </template>
 
 <script>
