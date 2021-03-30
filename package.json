@@ -54,9 +54,7 @@
     "sass": "^1.32.8",
     "sass-loader": "^10.1.1",
     "vue": "^2.6.12",
-    "vue-currency-input": "^1.22.6",
-    "vue-html2pdf": "^1.8.0",
-    "vuelidate": "^0.7.6"
+    "vue-currency-input": "^1.22.6"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^5.0.0",

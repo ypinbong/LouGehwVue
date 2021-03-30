@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 export default{
+    async refreshPage() {
+        this.$router.app.refresh()
+    },
     async loadCustomers({ commit }) {
-        //console.log('HASIHA',this.$axios.defaults.baseURL);
-        // console.log("what", this.$axios);
         return await axios({
             method: "GET",
             url: `${this.$axios.defaults.baseURL}/customers/list`,
@@ -13,17 +14,13 @@ export default{
         })
         .then(res => {
             console.log(res);
-            commit("SET_CUSTOMER", res.data.customersList);
+            commit("setCustomer", res.data.customersList);
             // console.log("testCustomer", res.data.view);
             // return res.data;
         })
         .catch(err => err);
     },
-        async addCustomer({ commit },{ custName, custAddress, custContact, custStatus}) {
-        console.log(custName);
-        console.log(custAddress);
-        console.log(custContact);
-        console.log(custStatus);
+    async addCustomer({ commit },{ custName, custAddress, custContact, custStatus }) {
         return await axios({
             method: "POST",
             url: `${this.$axios.defaults.baseURL}/customers/list`,
@@ -39,9 +36,31 @@ export default{
         })
         .then(res => {
             console.log(res);
-            commit("ADD_CUSTOMER", res.data.customersList);
+            commit("addCustomer", res.data.customersList);
             // console.log("testCustomer", res.data.view);
             // return res.data;
         })
     },
+    async editCustomer({ commit }, { custid, custName, custAddress, custContact, custStatus }) {
+        return await axios({
+            method: "PATCH",
+            url: `${this.$axios.defaults.baseURL}/customers/list/${custid}`,
+            // headers: {
+            //     Authorization: `Bearer ${SecretKey}`
+            // },
+            data: {
+                custid,
+                custName,
+                custContact,
+                custAddress,
+                custStatus
+            }
+            })
+            .then(res => {
+                // console.log("supnew", res);
+                commit("editCustomer", res.config.data);
+                return res;
+            })
+            .catch(err => err);
+    }
 }

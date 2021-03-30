@@ -83,10 +83,6 @@ import ItemTable from "~/components/ItemTable.vue";
         name: "Shop",
         data() {
         return {
-          form: {
-            email: '',
-            name: '',
-          },
         }
       },
       module: {

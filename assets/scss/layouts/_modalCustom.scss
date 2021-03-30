@@ -83,3 +83,10 @@ header {
 .modalContainer option {
   color: black;
 }
+
+.selectEditBtn {
+  @include inputBar();
+  border-style: none !important;
+  padding: 0;
+  color: #687077;
+}
