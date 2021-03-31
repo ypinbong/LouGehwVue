@@ -11,7 +11,7 @@
                 <div class="form-group">
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password..." >
                 </div>
-               <NuxtLink class="btn-danger mt-3 px-3 py-2" to="/shop">Submit</NuxtLink>
+               <NuxtLink class="btn-danger mt-3 px-3 py-2" to="/suppliers">Submit</NuxtLink>
                 <div class="mt-5">Copyright &copy; 2021 Yong Pin L. Bong</div>
                 </form>
                 

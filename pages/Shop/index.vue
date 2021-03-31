@@ -12,10 +12,10 @@
           <h1 class="text-center mt-3">Shop</h1>
           </div>
           <div>
+            <!-- // *ANCHOR - Add a New Item Modal -->
             <button class="btn-danger mt-3 px-3 py-2" v-b-modal.modal-1>
               Add<span>&plus;</span>
             </button>
-
             <b-modal class="modalContainer" id="modal-1" centered title="Add an Item Form" header-class="justify-content-center" no-close-on-backdrop hide-footer>
               <form action="" method="post">
                 <div>
@@ -31,6 +31,9 @@
                     <input type="text" class="form-control"  placeholder="Description...">
                 </div>
                 <div class="form-group">
+                    <input type="text" class="form-control"  placeholder="Supplier...">
+                </div>
+                <div class="form-group">
                     <input type="number" class="form-control"  placeholder="Quantity...">
                 </div>
                 <div class="form-group">
@@ -38,7 +41,7 @@
                 </div>
                 <b-row align-h="center">
                   <b-col cols='6' class="text-center">
-                    <button class="btn-danger mt-3 py-2" v-b-modal.modal-1>
+                    <button @click="addtoShop()" class="btn-danger mt-3 py-2">
                       Add<span>&plus;</span>
                     </button>
                   </b-col>
@@ -47,23 +50,33 @@
             </b-modal>
           </div>
           <ItemTable />
+          <!-- // *ANCHOR - Modal for editing item details -->
           <b-modal class="modalContainer" id="modal-edit" centered title="Fill in customer details" header-class="justify-content-center" no-close-on-backdrop hide-footer>
               <form action="" method="post">
                 <div>
-                    <img class="mb-3 col-12 text-center" src="undraw_Add_user_re_5oib.svg" alt="" width="200" height="120">
+                  <img class="mb-3 col-12 text-center" src="undraw_publish_post_vowb.svg" alt="" width="200" height="120">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Name...">
+                    <input type="text" class="form-control"  placeholder="Item Name...">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Address..">
+                    <input type="text" class="form-control"  placeholder="Barcode #...">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Contact #...">
+                    <input type="text" class="form-control"  placeholder="Description...">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control"  placeholder="Supplier...">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control"  placeholder="Quantity...">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control"  placeholder="Price...">
                 </div>
                 <b-row align-h="center">
                   <b-col cols='6' class="text-center">
-                    <button class="btn-danger mt-3 py-2" v-b-modal.modal-edit>
+                    <button @click="addtoShop()" class="btn-danger mt-3 py-2">
                       Add<span>&plus;</span>
                     </button>
                   </b-col>

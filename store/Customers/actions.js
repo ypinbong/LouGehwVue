@@ -1,9 +1,6 @@
 import axios from 'axios';
 
 export default{
-    async refreshPage() {
-        this.$router.app.refresh()
-    },
     async loadCustomers({ commit }) {
         return await axios({
             method: "GET",
@@ -41,25 +38,20 @@ export default{
             // return res.data;
         })
     },
-    async editCustomer({ commit }, { custid, custName, custAddress, custContact, custStatus }) {
+    async editCustomer({ commit }, { TempCustVar }) {
         return await axios({
             method: "PATCH",
             url: `${this.$axios.defaults.baseURL}/customers/list/${custid}`,
             // headers: {
             //     Authorization: `Bearer ${SecretKey}`
             // },
-            data: {
-                custid,
-                custName,
-                custContact,
-                custAddress,
-                custStatus
-            }
+            data: {...TempCustVar}
             })
             .then(res => {
                 // console.log("supnew", res);
-                commit("editCustomer", res.config.data);
-                return res;
+                commit("editCustomer", res.data);
+                return res.data;
+                
             })
             .catch(err => err);
     }
