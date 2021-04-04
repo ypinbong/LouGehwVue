@@ -92,7 +92,7 @@ export default {
   build: {},
 
   server: {
-    host: '172.16.4.170',
+    host: '192.168.0.144',
     port: 333
   }
 }

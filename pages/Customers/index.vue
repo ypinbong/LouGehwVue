@@ -44,42 +44,7 @@
           </div>
         </div>
         <CustTable 
-        :TempVar="TempCustVar"
         />
-         <!-- //* ANCHOR - MODAL FORM FOR EDITING CUSTOMER DEATILS IN THE TABLE -->
-        <b-modal class="modalContainer" id="modal-edit" centered title="Fill in customer details" header-class="justify-content-center" no-close-on-backdrop hide-footer>
-          <div>
-              <img class="mb-3 col-12 text-center" src="undraw_wall_post_83ul.svg" alt="undraw_wall_post_83ul.svg" width="200" height="120">
-          </div>
-          <div class="form-group">
-              <input type="text" class="form-control" v-model="TempCustVar.custEditName" placeholder="Name..." required>
-          </div>
-          <div class="form-group">
-              <input type="text" class="form-control" v-model="TempCustVar.custEditAddress"  placeholder="Address.." required>
-          </div>
-          <div class="form-group">
-              <input type="text" class="form-control" v-model="TempCustVar.custEditContact"  placeholder="Contact #..." required>
-          </div>
-          <b-form-group >
-            <b-form-select
-              class="selectEditBtn"
-              id="custStatus"
-              v-model="TempCustVar.custEditStatus"
-              :options="status"
-              aria-describedby="input-2-live-feedback"
-              data-vv-as="Status"
-            ></b-form-select>
-          </b-form-group>
-          <!-- //? button inside b-row and b-col to adjust it's size and center it -->
-          <b-row align-h="center">
-            <b-col cols='6' class="text-center">
-              <!-- //* TRIGGERS `editCustomer()` FUNCTION WHEN THE BUTTON IS CLICKED -->
-              <button @click="editCustomer()" class="btn-danger mt-3 py-2">
-                Confirm
-              </button>
-            </b-col>
-          </b-row>
-        </b-modal>
       </div>
     </div>
 </template>
@@ -92,19 +57,6 @@
           custAddAddress: "",
           custAddContact: "",
           custAddStatus: "",
-          
-          status: [
-            { value: "", text: "Status...", disabled: true},
-            { value: "active", text: "Active"},
-            { value: "inactive", text: "Inactive"},
-          ],
-
-          TempCustVar: {
-            custEditName: null,
-            custEditAddress: null,
-            custEditContact: null,
-            custEditStatus: "",
-          }
         }
       },
       methods: {
@@ -114,22 +66,6 @@
                 custAddress: this.custAddAddress,
                 custContact: this.custAddContact,
                 custStatus: this.custAddStatus,
-              })
-              .then(res => {
-              // console.log("err", res);
-              window.location.reload();
-              })
-              .catch(err => {
-                console.log(err);
-                this.showAlert(err.response.data.msg, "danger");
-              });
-          },
-          editCustomer(){
-              this.$store.dispatch("editCustomer", {
-                custName: this.TempCustVar.custEditName,
-                custAddress: this.TempCustVar.custEditAddress,
-                custContact: this.TempCustVar.custEditContact,
-                custStatus: this.TempCustVar.custEditStatus,
               })
               .then(res => {
               // console.log("err", res);

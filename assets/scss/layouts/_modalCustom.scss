@@ -6,7 +6,7 @@
   outline: none;
   border: none;
   border-radius: 5px;
-  margin: 5px;
+  padding: 10px 15px !important;
 }
 
 header {
@@ -68,25 +68,24 @@ header {
   color: #fff;
 }
 
-.modalContainer select {
-  width: 100%;
-  box-sizing: border-box;
-  box-shadow: 0 4px 2px -2px #e54f60;
-  padding: 12px 5px;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  margin: 5px;
-  color: gray;
-}
+// .modalContainer select {
+//   width: 100%;
+//   box-sizing: border-box;
+//   box-shadow: 0 4px 2px -2px #e54f60;
+//   padding: 12px 5px;
+//   outline: none;
+//   border: none;
+//   border-radius: 5px;
+//   margin: 5px;
+//   color: gray;
+// }
 
-.modalContainer option {
-  color: black;
-}
+// .modalContainer option {
+//   color: black;
+// }
 
 .selectEditBtn {
   @include inputBar();
   border-style: none !important;
-  padding: 0;
   color: #687077;
 }
