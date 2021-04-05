@@ -11,30 +11,32 @@
           />
           <h1 class="text-center mt-3">Suppliers</h1>
           <div>
-            
-          </div>
-          <div>
             <button class="btn-danger mt-3 px-3 py-2" v-b-modal.modal-1>
               Add<span>&plus;</span>
             </button>
-
-            <b-modal class="modalContainerr" id="modal-1" centered title="Fill in supplier details" header-class="justify-content-center" no-close-on-backdrop hide-footer>
+            <b-modal
+            class="modalContainer"
+            id="modal-1"
+            centered title="Fill in supplier details"
+            header-class="justify-content-center"
+            no-close-on-backdrop
+            hide-footer>
               <form action="" method="post">
                 <div>
-                <img class="mb-3 col-12 text-center" src="undraw_deliveries_131a.svg" alt="" width="200" height="120">
+                    <img class="mb-3 col-12 text-center" src="undraw_deliveries_131a.svg" alt="" width="200" height="120">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Name...">
+                    <input type="text" class="form-control" v-model="addNewName"  placeholder="Name..." required>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Address..">
+                    <input type="text" class="form-control" v-model="addNewAddress"  placeholder="Address.." required>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Contact #...">
+                    <input type="text" class="form-control" v-model="addNewContact"  placeholder="Contact #..." required>
                 </div>
                 <b-row align-h="center">
                   <b-col cols='6' class="text-center">
-                    <button class="btn-danger mt-3 py-2" v-b-modal.modal-1>
+                    <button @click="addNewSupplier()" class="btn-danger mt-3 py-2">
                       Add<span>&plus;</span>
                     </button>
                   </b-col>
@@ -44,37 +46,36 @@
           </div>
         </div>
         <SupTable />
-        <b-modal class="modalContainer" id="modal-edit" centered title="Fill in customer details" header-class="justify-content-center" no-close-on-backdrop hide-footer>
-              <form action="" method="post">
-                <div>
-                    <img class="mb-3 col-12 text-center" src="undraw_Add_user_re_5oib.svg" alt="" width="200" height="120">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Name...">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Address..">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Contact #...">
-                </div>
-                <b-row align-h="center">
-                  <b-col cols='6' class="text-center">
-                    <button class="btn-danger mt-3 py-2" v-b-modal.modal-edit>
-                      Add<span>&plus;</span>
-                    </button>
-                  </b-col>
-                </b-row>
-              </form>
-        </b-modal>
       </div>
     </div>
 </template>
 
 <script>
     export default {
-        layout: "default",
-        name: "Suppliers"
+        data() {
+            return{
+              addNewName: "",
+              addNewAddress: "",
+              addNewContact: "",
+            }
+        },
+        methods: {
+            addNewSupplier(){
+              this.$store.dispatch("Suppliers/addNewSupplier", {
+                supName: this.addNewName,
+                supAddress: this.addNewAddress,
+                supContact: this.addNewContact,
+              })
+              .then(res => {
+              })
+              .catch(err => {
+                console.log(err);
+                this.showAlert(err.response.data.msg, "danger");
+                window.location.reload();
+              })
+            }
+        },
+        name: "Suppliers",
     };
 </script>
 

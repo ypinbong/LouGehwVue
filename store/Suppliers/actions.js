@@ -1,67 +1,60 @@
 import axios from 'axios';
 
 export default{
-    async getItems({ commit }) {
+    async getSuppliers({ commit }) {
         return await axios({
             method: "GET",
-            url: `${this.$axios.defaults.baseURL}/items/list`,
+            url: `${this.$axios.defaults.baseURL}/suppliers/list`,
             // headers: {
             //     Authorization: `Bearer ${SecretKey}`
             // }
         })
         .then(res => {
             console.log(res);
-            commit("setItems", res.data.itemsList);
+            commit("setSupplier", res.data.suppliersList);
             // console.log("testCustomer", res.data.view);
             // return res.data;
         })
         .catch(err => err);
     },
-    async addNewItem({ commit },{ name, barcode, description, supid, price, quantity }) {  
+    async addNewSupplier({ commit },{ supName, supAddress, supContact }) {
         return await axios({
             method: "POST",
-            url: `${this.$axios.defaults.baseURL}/items/list`,
+            url: `${this.$axios.defaults.baseURL}/suppliers/list`,
             // headers: {
             //     Authorization: `Bearer ${SecretKey}`
             // }
             data: {
-                name,
-                barcode,
-                description,
-                supid,
-                price,
-                quantity,
+                supName,
+                supContact,
+                supAddress,
             }
         })
         .then(res => {
-            console.log("addNewItemRes",res);
-            commit("addNewItem", res.data.itemsList);
+            console.log(res);
+            commit("addNewSupplier", res.data.suppliersList);
             // console.log("testCustomer", res.data.view);
             // return res.data;
         })
-        .catch(err => {console.log("addNewItemError",err);});
     },
-    async editItem({ commit }, { id, name, barcode, description, supid,  price, quantity, itemStatus }) {
+    async editSupplier({ commit }, { supid, supName, supContact, supAddress, supStatus }) {
         return await axios({
             method: "PATCH",
-            url: `${this.$axios.defaults.baseURL}/items/list/${id}`,
+            url: `${this.$axios.defaults.baseURL}/suppliers/list/${supid}`,
             // headers: {
             //     Authorization: `Bearer ${SecretKey}`
             // },
             data: {
-                id,
-                name,
-                barcode,
-                description,
                 supid,
-                price,
-                quantity,
-                itemStatus
+                supName,
+                supAddress,
+                supContact,
+                supStatus
             }
             })
             .then(res => {
                 // console.log("supnew", res);
-                commit("editItem", res.data.itemsList);
+                commit("editSupplier", res.data.suppliersList);
                 return res.data;
                 
             })

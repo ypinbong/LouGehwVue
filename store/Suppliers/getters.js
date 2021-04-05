@@ -1,6 +1,6 @@
 export default {
-    allItems(state) {
-        return state.itemsState;
+    allSuppliers(state) {
+        return state.suppliersState;
         //console.log(state.customersState);
     },
 }

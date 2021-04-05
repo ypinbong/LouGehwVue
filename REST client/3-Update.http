@@ -1,9 +1,12 @@
-PATCH http://172.16.4.211:24/customers/list/id#
+PATCH http://172.16.4.211:24/items/list/26
 Content-Type: application/json
 
 {
-"custName": "Karlo Kombata",
-"custContact": "(083) 2917107",
-"custAddress": "Basin Asa",
-"custStatus": "Inactive"
+"name": "Excalibur",
+"barcode": "9012830918",
+"description": "Legendary sword",
+"supid": "3",
+"quantity": "1",
+"price": "123123",
+"itemStatus": "Inactive"
 }

@@ -1,28 +1,15 @@
 export default {
-    setCustomer(state, customer) {
-        state.customersState = customer;
+    setItems(state, item) {
+        state.itemsState = item;
         // console.log(state.customersState);
     },
-    addCustomer(state, customer) {
-        state.customersState.push(customer);
+    addNewItem(state, item) {
+        state.itemsState.push(item);
     },
-    editCustomer(state, customer) {
-        const index = state.customersState.findIndex();
-        state.customersState.splice(index, 1);
-        state.customersState.push(editedData);
+    editItem(state) {
+        const index = state.itemsState.findIndex();
+        state.itemsState.splice(index, 1);
+        state.itemsState.push(editedData);
         
     },
-    setSupplier(state, customer) {
-        state.suppliersState = customer;
-        // console.log(state.customersState);
-    },
-    addSupplier(state, customer) {
-        state.suppliersState.push(customer);
-    },
-    editSupplier(state, customer) {
-        const index = state.suppliersState.findIndex();
-        state.suppliersState.splice(index, 1);
-        state.suppliersState.push(editedData);
-        
-    }
 }

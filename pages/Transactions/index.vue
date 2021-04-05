@@ -24,7 +24,6 @@
 
 <script>
     export default {
-        layout: "default",
         name: "Transactions"
     };
 </script>

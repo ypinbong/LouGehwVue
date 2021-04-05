@@ -13,94 +13,129 @@
           </div>
           <div>
             <!-- // *ANCHOR - Add a New Item Modal -->
-            <button class="btn-danger mt-3 px-3 py-2" v-b-modal.modal-1>
+            <button class="btn-danger mt-3 px-3 py-2" v-b-modal.itemModal>
               Add<span>&plus;</span>
             </button>
-            <b-modal class="modalContainer" id="modal-1" centered title="Add an Item Form" header-class="justify-content-center" no-close-on-backdrop hide-footer>
-              <form action="" method="post">
+            <b-modal
+            class="modalContainer"
+            id="itemModal"
+            centered title="Add an Item Form"
+            header-class="justify-content-center"
+            no-close-on-backdrop
+            hide-footer>
                 <div>
-                  <img class="mb-3 col-12 text-center" src="undraw_empty_cart_co35.svg" alt="" width="200" height="120">
+                    <img class="mb-3 col-12 text-center" src="undraw_empty_cart_co35.svg" alt="" width="200" height="120">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Item Name...">
+                    <input
+                    type="text"
+                    class="form-control"
+                    v-model="addNewName"
+                    placeholder="Item Name..."
+                    >
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Barcode #...">
+                    <input
+                    type="text"
+                    class="form-control"
+                    v-model="addNewBarcode"
+                    placeholder="Barcode #..."
+                    >
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Description...">
+                    <input
+                    type="text"
+                    class="form-control"
+                    v-model="addNewDescription"
+                    placeholder="Description..."
+                    >
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Supplier...">
+                    <input
+                    type="text"
+                    class="form-control"
+                    v-model="addNewSupplier"
+                    placeholder="Supplier ID..."
+                    >
                 </div>
                 <div class="form-group">
-                    <input type="number" class="form-control"  placeholder="Quantity...">
+                    <input
+                    type="number"
+                    class="form-control"
+                    v-model="addNewQuantity"
+                    placeholder="Quantity..."
+                    >
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Price...">
+                    <input
+                    type="number"
+                    class="form-control"
+                    v-model="addNewPrice"
+                    placeholder="Price..."
+                    >
                 </div>
                 <b-row align-h="center">
                   <b-col cols='6' class="text-center">
-                    <button @click="addtoShop()" class="btn-danger mt-3 py-2">
+                    <button @click="addNewItem()" class="btn-danger mt-3 py-2">
                       Add<span>&plus;</span>
                     </button>
                   </b-col>
                 </b-row>
-              </form>
             </b-modal>
           </div>
           <ItemTable />
-          <!-- // *ANCHOR - Modal for editing item details -->
-          <b-modal class="modalContainer" id="modal-edit" centered title="Fill in customer details" header-class="justify-content-center" no-close-on-backdrop hide-footer>
-              <form action="" method="post">
-                <div>
-                  <img class="mb-3 col-12 text-center" src="undraw_publish_post_vowb.svg" alt="" width="200" height="120">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Item Name...">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Barcode #...">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Description...">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Supplier...">
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control"  placeholder="Quantity...">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control"  placeholder="Price...">
-                </div>
-                <b-row align-h="center">
-                  <b-col cols='6' class="text-center">
-                    <button @click="addtoShop()" class="btn-danger mt-3 py-2">
-                      Add<span>&plus;</span>
-                    </button>
-                  </b-col>
-                </b-row>
-              </form>
-        </b-modal>
         </div>
       </div>    
 </template>
 
 <script>
-
-import ItemTable from "~/components/ItemTable.vue";
-
     export default {
-        layout: "default",
-        name: "Shop",
         data() {
-        return {
-        }
-      },
-      module: {
-        ItemTable,
-      },
+          return {
+            addNewName: "",
+            addNewBarcode: "",
+            addNewDescription: "",
+            addNewSupplier: "",
+            addNewQuantity: "",
+            addNewPrice: "",
+          }
+        },
+        methods: {
+        async addNewItem(){
+            this.$store.dispatch("Items/addNewItem", {
+              name: this.addNewName,
+              barcode: this.addNewBarcode,
+              description: this.addNewDescription,
+              supid: this.addNewSupplier,
+              quantity: this.addNewQuantity,
+              price: this.addNewPrice,
+            })
+            .then(res => {
+              window.location.reload();
+            })
+            .catch(err => {
+              this.showAlert(err.response.data.msg, "danger");
+              // window.location.reload();
+            });
+
+            // try {
+            // const res =  await this.$store.dispatch("Items/addNewItem", {
+            //   name: this.addNewName,
+            //   barcode: this.addNewBarcode,
+            //   description: this.addNewDescription,
+            //   supid: this.addNewSupplier,
+            //   quantity: this.addNewQuantity,
+            //   price: this.addNewPrice,
+            // })
+
+            // console.log(res);
+            // }
+            // catch (e) {
+            //   console.log("Error: ",e);
+            // }
+          },
+        },
+        name: "Shop",
     };
     
 </script>

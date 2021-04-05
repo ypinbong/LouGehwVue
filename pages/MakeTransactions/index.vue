@@ -19,7 +19,6 @@
 <script>
 
 import MakeTransactionForm from "~/components/MakeTransactionForm.vue";
-
     export default {
         layout: "default",
         name: "MakeTransactions",

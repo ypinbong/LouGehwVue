@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default{
-    async loadCustomers({ commit }) {
+    async getCustomers({ commit }) {
         return await axios({
             method: "GET",
             url: `${this.$axios.defaults.baseURL}/customers/list`,
@@ -17,7 +17,7 @@ export default{
         })
         .catch(err => err);
     },
-    async addCustomer({ commit },{ custName, custAddress, custContact, custStatus }) {
+    async addNewCustomer({ commit },{ custName, custAddress, custContact, custStatus }) {
         return await axios({
             method: "POST",
             url: `${this.$axios.defaults.baseURL}/customers/list`,
@@ -33,23 +33,29 @@ export default{
         })
         .then(res => {
             console.log(res);
-            commit("addCustomer", res.data.customersList);
+            commit("addNewCustomer", res.data.customersList);
             // console.log("testCustomer", res.data.view);
             // return res.data;
         })
     },
-    async editCustomer({ commit }, { TempCustVar }) {
+    async editCustomer({ commit }, { custid, custName, custContact, custAddress, custStatus }) {
         return await axios({
             method: "PATCH",
             url: `${this.$axios.defaults.baseURL}/customers/list/${custid}`,
             // headers: {
             //     Authorization: `Bearer ${SecretKey}`
             // },
-            data: {...TempCustVar}
+            data: {
+                custid,
+                custName,
+                custAddress,
+                custContact,
+                custStatus
+            }
             })
             .then(res => {
                 // console.log("supnew", res);
-                commit("editCustomer", res.data);
+                commit("editCustomer", res.data.customersList);
                 return res.data;
                 
             })

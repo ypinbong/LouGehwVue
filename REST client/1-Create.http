@@ -1,9 +1,12 @@
-POST http://172.16.4.211:24/customers/list/
+POST http://172.16.4.211:24/items/list/
 Content-Type: application/json
 
 {
-"custName": "Karlo Kombata",
-"custContact": "(083) 2917107",
-"custAddress": "Basin Asa",
-"custStatus": "Inactive"
+"name": "Yongwolrang",
+"barcode": "9018223467",
+"description": "Legendary twin sword",
+"supid": "3",
+"quantity": "1",
+"price": "123123",
+"itemStatus": "Active"
 }
