@@ -47,7 +47,7 @@
                 <img class="mb-3 col-12 text-center" src="undraw_wall_post_83ul.svg" alt="undraw_wall_post_83ul.svg" width="200" height="120">
             </div>
             <div class="form-group">
-                <label>ID</label>
+                <label>Customer ID:</label>
                 <input
                 type="text"
                 class="form-control"

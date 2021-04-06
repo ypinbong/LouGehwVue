@@ -1,12 +1,23 @@
-POST http://172.16.4.211:24/items/list/
+POST http://172.16.4.211:24/transaction/sales
 Content-Type: application/json
 
-{
-"name": "Yongwolrang",
-"barcode": "9018223467",
-"description": "Legendary twin sword",
-"supid": "3",
-"quantity": "1",
-"price": "123123",
-"itemStatus": "Active"
-}
+[
+    {"customer":   
+        [
+            {"custid": ""}
+        ]
+    },
+    {"items":
+        [
+            {"id":2,"quantity":"1", "subTotal": 234},
+            {"id":1,"quantity":"2", "subTotal": 22},
+            {"id":24,"quantity":"3", "subTotal": 2567},
+            {"id":18,"quantity":"4", "subTotal": 2567}
+        ]
+    },
+    {"transactionTotal":
+        [
+            {"totalPrice":5732}
+        ]
+    }
+]

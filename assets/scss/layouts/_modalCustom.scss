@@ -3,10 +3,11 @@
   box-sizing: border-box;
   box-shadow: 0 4px 2px -2px #e54f60;
   padding: 12px 5px;
-  outline: none;
-  border: none;
+  // outline: none;
+  border: 0.1px solid #d12a3e09 !important;
   border-radius: 5px;
   padding: 10px 15px !important;
+  font-size: large;
 }
 
 header {
@@ -47,14 +48,14 @@ header {
 
 .form-control {
   @include inputBar();
-  border-style: none !important;
+  // border-style: none !important;
 }
 
 .modalContainer input[type='submit'] {
   padding: 10px 15px !important;
   margin-top: 10px;
   border-radius: 100px;
-  border-style: none;
+  border-style: solid;
   background-color: #fff;
   border-color: #d35866;
   border-style: inset;
@@ -86,8 +87,9 @@ header {
 
 .selectEditBtn {
   @include inputBar();
-  border-style: none !important;
-  color: #687077;
+  // border-style: none !important;
+  color: #495057;
+  font-size: large;
 }
 
 label {
