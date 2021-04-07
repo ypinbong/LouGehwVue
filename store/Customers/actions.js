@@ -18,25 +18,44 @@ export default{
         .catch(err => err);
     },
     async addNewCustomer({ commit },{ custName, custAddress, custContact, custStatus }) {
-        return await axios({
-            method: "POST",
-            url: `${this.$axios.defaults.baseURL}/customers/list`,
-            // headers: {
-            //     Authorization: `Bearer ${SecretKey}`
-            // }
-            data: {
-                custName,
-                custContact,
-                custAddress,
-                custStatus
-            }
-        })
-        .then(res => {
-            console.log(res);
-            commit("addNewCustomer", res.data.customersList);
-            // console.log("testCustomer", res.data.view);
-            // return res.data;
-        })
+        // return await axios({
+        //     method: "POST",
+        //     url: `${this.$axios.defaults.baseURL}/customers/list`,
+        //     // headers: {
+        //     //     Authorization: `Bearer ${SecretKey}`
+        //     // }
+        //     data: {
+        //         custName,
+        //         custContact,
+        //         custAddress,
+        //         custStatus
+        //     }
+        // })
+        // .then(res => {
+        //     // console.log(res);
+        //     commit("addNewCustomer", res.data);
+        //     // console.log("testCustomer", res.data.view);
+        //     // return res.data;
+        // })
+        try {
+         const res=   await axios({
+                method: "POST",
+                url: `${this.$axios.defaults.baseURL}/customers/list`,
+                // headers: {
+                //     Authorization: `Bearer ${SecretKey}`
+                // }
+                data: {
+                    custName,
+                    custContact,
+                    custAddress,
+                    custStatus
+                }
+            })
+            console.log('wee',res);
+           return res;
+        } catch (e) {
+            console.log("Error: ",e);
+        }
     },
     async editCustomer({ commit }, { custid, custName, custContact, custAddress, custStatus }) {
         return await axios({

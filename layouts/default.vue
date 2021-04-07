@@ -22,13 +22,13 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item mx-2">
+              <NuxtLink class="nav-link" to="/customers">Customers</NuxtLink>
+            </li>
+            <li class="nav-item mx-2">
               <NuxtLink class="nav-link" to="/suppliers">Suppliers</NuxtLink>
             </li>
             <li class="nav-item mx-2">
               <NuxtLink class="nav-link" to="/shop">Shop</NuxtLink>
-            </li>
-            <li class="nav-item mx-2">
-              <NuxtLink class="nav-link" to="/customers">Customers</NuxtLink>
             </li>
             <b-nav-item-dropdown
               class="mx-2"

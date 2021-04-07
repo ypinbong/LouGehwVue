@@ -14,7 +14,7 @@
           <div>
             <!-- // *ANCHOR - Add a New Item Modal -->
             <button class="btn-danger mt-3 px-3 py-2" v-b-modal.itemModal>
-              Add<span>&plus;</span>
+              Add <i class="fas fa-plus"></i>
             </button>
             <b-modal
             class="modalContainer"
@@ -77,7 +77,7 @@
                 <b-row align-h="center">
                   <b-col cols='6' class="text-center">
                     <button @click="addNewItem()" class="btn-danger mt-3 py-2">
-                      Add<span>&plus;</span>
+                      Add <i class="fas fa-plus"></i>
                     </button>
                   </b-col>
                 </b-row>

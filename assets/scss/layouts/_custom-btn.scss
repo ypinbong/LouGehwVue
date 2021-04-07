@@ -35,3 +35,13 @@ $btnHover: white;
     border-style: outset;
   }
 }
+
+.editBtn {
+  color: $btnColor;
+  border-radius: 100%;
+}
+.viewBtn {
+  background-color: $btnColor;
+  border-radius: 100%;
+  border-color: $btnColor;
+}

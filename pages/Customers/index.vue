@@ -12,7 +12,7 @@
           <h1 class="text-center mt-3">Customer Database</h1>
           <div>
             <button class="btn-danger mt-3 px-3 py-2" v-b-modal.customerModal>
-              Add<span>&plus;</span>
+              Add <i class="fas fa-plus"></i>
             </button>
             <!-- //* ANCHOR - MODAL FOR ADDING NEW CUSTOMER IN CUSTOMER TABLE -->
             <b-modal
@@ -37,7 +37,7 @@
                   <b-col cols='6' class="text-center">
                     <!-- //* TRIGGERS `addCustomer()` FUNCTION WHEN THE BUTTON IS CLICKED -->
                     <button @click="addNewCustomer()"  class="btn-danger mt-3 py-2">
-                      Add<span>&plus;</span>
+                      Add <i class="fas fa-plus"></i>
                     </button>
                   </b-col>
                 </b-row>
@@ -67,8 +67,8 @@
                 custContact: this.addNewContact,
               })
               .then(res => {
-              console.log("addNewCustomer", res);
-              window.location.reload();
+              console.log("final", res);
+              
               })
               .catch(err => {
                 console.log("err", err);

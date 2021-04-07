@@ -16,16 +16,17 @@
                 :fields="fields"
                 :sort-by.sync="sortBy"
                 :sort-desc.sync="sortDesc"
+                :key="suppliersState.supid"
             >
                 <template v-slot:cell(action)="row">
                     <b-button
                     @click="edit(row.item, row.index)"
                     size="sm"
-                    class="mr-2"
-                    variant="primary"
+                    class="editBtn mr-2"
+                    variant="none"
                     pill
                     >
-                        edit
+                        <i class="fas fa-pencil-alt"></i>
                     </b-button>
                 </template>
             </b-table>

@@ -1,2 +1,10 @@
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
+
+$btnColor: #e54f616b;
+
+.MakeTransContainer {
+  padding: 5px 0 5px 0;
+  margin: 5px 0 5px 0;
+  background-color: transparent;
+}

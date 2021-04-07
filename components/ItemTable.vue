@@ -14,17 +14,17 @@
       :filter="filter"
       show-empty
       :fields="fields"
-      :key="items-table"
+      :key="itemsState.id"
     >
       <template v-slot:cell(action)="row">
         <b-button
           @click="edit(row.item, row.index)"
           size="sm"
-          class="mr-2"
-          variant="primary"
+          class="editBtn mr-2"
+          variant="none"
           pill
         >
-          edit
+          <i class="fas fa-pencil-alt"></i>
         </b-button>
       </template>
     </b-table>
@@ -184,7 +184,6 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch('Items/getItems', {})
-    this.$store.dispatch('Items/editItem', {})
   },
   computed: {
     ...mapGetters({

@@ -17,16 +17,17 @@
             :fields="fields"
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
+            :key="customersState.custid"
         >
             <template v-slot:cell(action)="row">
                 <b-button
                 @click="edit(row.item, row.index)"
                 size="sm"
-                class="mr-2"
-                variant="primary"
+                class="editBtn mr-2"
+                variant="none"
                 pill
                 >
-                    edit
+                    <i class="fas fa-pencil-alt"></i>
                 </b-button>
             </template>
         </b-table>
@@ -183,7 +184,7 @@ export default {
             })
             .then(res => {
             // console.log("err", res);
-            window.location.reload();
+            // window.location.reload();
             })
             .catch(err => {
             console.log(err);
