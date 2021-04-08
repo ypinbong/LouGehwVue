@@ -37,6 +37,7 @@
             aria-controls="my-table"
         ></b-pagination>
         <b-modal
+        @submit.prevent
         id="editingSupplier"
         class="modalContainer" 
         centered title="Fill in supplier details"
@@ -173,7 +174,10 @@ export default {
             })
             .then(res => {
             // console.log("err", res);
-            window.location.reload();
+            this.$store.dispatch("Suppliers/getSuppliers", {
+            //SectretKey: locatStorage.SecretKey
+            })
+            this.$bvModal.hide('editingSupplier')
             })
             .catch(err => {
             console.log(err);

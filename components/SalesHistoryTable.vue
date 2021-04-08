@@ -8,7 +8,7 @@
         placeholder="Type to search..."
         />
         <b-table
-            id="customer-table"
+            id="salesHistoryTable"
             :items="salesState"
             :per-page="perPage"
             :current-page="currentPage"
@@ -53,17 +53,20 @@ export default {
             fields: [
                 { key: 'salesTransactionId', label: 'ID', sortable: true },
                 { key: 'grandTotal', label: 'Amount', sortable: true },
-                { key: 'custid', label: 'Customer ID', sortable: false },
+                { key: 'custName', label: 'Customer', sortable: true },
+                { key: 'date', label: 'Transaction Date', sortable: true },
                 { key: 'action', label: 'Action', sortable: false },
             ],
         }
     },
     beforeCreate(){
         this.$store.dispatch("Transactions/getSalesHistory", {});
+        this.$store.dispatch("Customers/getCustomers", {});
         },
         computed: {
             ...mapGetters({
-                salesState: "Transactions/allSales"
+                salesState: "Transactions/allSales",
+                customersState: "Customers/allCustomers"
             }),
             rows() {
                 return this.salesState.length;

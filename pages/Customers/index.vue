@@ -11,15 +11,17 @@
           />
           <h1 class="text-center mt-3">Customer Database</h1>
           <div>
-            <button class="btn-danger mt-3 px-3 py-2" v-b-modal.customerModal>
+            <button class="btn-danger mt-3 px-3 py-2" v-b-modal.addaNewCustomerModal>
               Add <i class="fas fa-plus"></i>
             </button>
             <!-- //* ANCHOR - MODAL FOR ADDING NEW CUSTOMER IN CUSTOMER TABLE -->
             <b-modal
             class="modalContainer"
-            id="customerModal"
+            id="addaNewCustomerModal"
             centered title="Fill in customer details" header-class="justify-content-center" no-close-on-backdrop
-            hide-footer>
+            hide-footer
+            @submit.prevent
+            >
                 <div>
                     <img class="mb-3 col-12 text-center" src="undraw_Selecting_team_re_ndkb.svg" alt="undraw_Selecting_team_re_ndkb.svg" width="200" height="120">
                 </div>
@@ -67,8 +69,8 @@
                 custContact: this.addNewContact,
               })
               .then(res => {
-              console.log("final", res);
-              
+              this.$store.dispatch('Customers/getCustomers')
+              this.$bvModal.hide('addaNewCustomerModal')
               })
               .catch(err => {
                 console.log("err", err);

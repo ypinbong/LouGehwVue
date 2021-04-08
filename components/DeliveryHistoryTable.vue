@@ -8,7 +8,7 @@
         placeholder="Type to search..."
         />
         <b-table
-            id="customer-table"
+            id="deliveryHistoryTable"
             :items="deliveriesState"
             :per-page="perPage"
             :current-page="currentPage"
@@ -17,6 +17,7 @@
             :fields="fields"
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
+            :key="deliveriesState.deliveryTransactionId"
         >
             <template v-slot:cell(action)="row">
                 <b-button
@@ -53,7 +54,7 @@ export default {
             fields: [
                 { key: 'deliveryTransactionId', label: 'ID', sortable: true },
                 { key: 'grandTotal', label: 'Amount', sortable: true },
-                { key: 'supid', label: 'Supplier ID', sortable: false },
+                { key: 'supName', label: 'Supplier', sortable: true },
                 { key: 'deliveryDate', label: 'Delivery Date', sortable: true },
                 { key: 'action', label: 'Action', sortable: false },
             ],
@@ -61,10 +62,12 @@ export default {
     },
     beforeCreate(){
         this.$store.dispatch("Transactions/getDeliveryHistory", {});
+        this.$store.dispatch("Suppliers/getSuppliers", {});
         },
         computed: {
             ...mapGetters({
-                deliveriesState: "Transactions/allDeliveries"
+                deliveriesState: "Transactions/allDeliveries",
+                suppliersState: "Suppliers/allSuppliers",
             }),
             rows() {
                 return this.deliveriesState.length;

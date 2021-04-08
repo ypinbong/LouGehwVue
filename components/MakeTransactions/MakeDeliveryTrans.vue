@@ -69,7 +69,7 @@
                             :key="itemsList.id"
                             :value="itemsList.name"
                             >
-                                ID#: {{itemsList.id}} | Name: {{ itemsList.name }} | Price: Php {{ itemsList.price }}
+                                ID#: {{itemsList.id}} | Name: {{ itemsList.name }} | Price: Php {{ itemsList.price }}.00
                             </option>
                         </b-form-datalist>
                     </b-col>
@@ -89,38 +89,53 @@
                         class="form-control"
                         type="number"
                         placeholder="0"
-                        v-model="quantity"
+                        v-model="selectedQuantity"
+                        @input="calcSubTotal"
                         ></b-form-input>
                     </b-col>
-                    <b-button variant="danger" @click="addToPending">Add <i class="fas fa-plus"></i></b-button>
+                    <b-button variant="danger" @click="addToPendingItems">Add <i class="fas fa-plus"></i></b-button>
                 </b-form>
             </b-container>
         </div>
         <div class="PendingItemsTable">
-            <table class="table mt-5">
-                <thead>
-                    <tr>
-                        <th >No.</th>
-                        <th scope="col">Barcode</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item, i) in list" :key="i">
-                        <th scope="row">{{ ++i }}</th>
-                        <td>{{ item.barcode }}</td>
-                        <td>{{ item.Product_name }}</td>
-                        <td>{{ item.Quantity }}</td>
-                        <td>{{ item.Price }}</td>
-                        <td>{{ item.Total }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <b-table id="PendingTable"
+            :items="pendingItems"
+            show-empty
+            :fields="fields"
+            :key="suppliersState.supid"
+            fixed
+            >
+            <template #cell(price)="data">
+                Php {{data.item.price}}.00
+            </template>
+            <template #cell(subTotal)="data">
+                Php {{data.item.subTotal}}.00
+            </template>
+            <template v-slot:cell(action)="row">
+                <b-button
+                @click="edit(row.item, row.index)"
+                size="sm"
+                class="editBtn mr-2"
+                variant="none"
+                pill
+                >
+                    <i class="fas fa-trash-alt"></i>
+                </b-button>
+            </template>
+            </b-table>
+            <b-col class="tableFooter">
+                <th class="tableFooter__TH" scrope="row">Grand Total: </th>
+                <td class="tableFooter__TD"> Php {{grandTotal}}.00</td>
+            </b-col>
         </div>
+        <b-button
+        @click="checkoutPendingItems"
+        size="sm"
+        class="my-5"
+        variant="danger"
+        >
+            <i class="fas fa-cash-register"></i> Checkout
+        </b-button>
     </div>
 </template>
 
@@ -134,10 +149,25 @@ export default {
         return {
             suppliersList:[],
             itemsList: [],
-            selectedItem: [],
+            pendingItems: [],
+            supid: '',
+            currentTotal: '0',
+            grandTotal: '0',
+            id:'',
             name:'',
-            price:'',
-            supid:'',
+            supName:'',
+            quantity:'0',
+            price:'0',
+            selectedQuantity: '',
+            subTotal: '',
+            fields: [
+                { key: 'id', label: 'Item ID', sortable: true },
+                { key: 'name', label: 'Name', sortable: true },
+                { key: 'selectedQuantity', label: 'Qty', sortable: true },
+                { key: 'price', label: 'Price', sortable: true },
+                { key: 'subTotal', label: 'Sub Total', sortable: true },
+                { key: 'action', label: 'Action', sortable: false },
+            ]
         }
     },
     beforeCreate() {
@@ -148,7 +178,7 @@ export default {
         ...mapGetters({
             itemsState: "Items/allItems" ,
             suppliersState: "Suppliers/allSuppliers"
-        })
+        }),
     },
     methods: {
         selectedItems(){
@@ -164,18 +194,69 @@ export default {
             (selectedSupplier) => selectedSupplier.supName == this.supName
         );
             this.supid = selectedSupplier.supid;
+        },
+        calcSubTotal() {
+            this.subTotal = this.selectedQuantity * this.price;
+        },
+        addToPendingItems() {
+            this.pendingItems.push({
+                id: this.id,
+                name: this.name,
+                selectedQuantity: this.selectedQuantity,
+                price: this.price,
+                subTotal: this.subTotal
+            });
+            this.currentTotal = (this.currentTotal*1) + (this.subTotal*1);
+            this.grandTotal = this.currentTotal;
+            this.clearForm();
+        },
+        clearForm(){
+            (this.id = ''),
+            (this.name = ''),
+            (this.selectedQuantity = ''),
+            (this.price = ''),
+            (this.subTotal = '');
+        },
+        clearPending() {
+            this.pendingItems='';
+        },
+        checkoutPendingItems() {
+            this.$store.dispatch("Transactions/AddNewDelivery", {
+                supName: this.supName,
+                deliveryDate: this.deliveryDate,
+                grandTotal: this.grandTotal,
+                id: this.id,
+            })
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-form{
+form {
     display: flex !important;
     justify-content: center !important;
     .btn-danger{
         padding:3px 5px 3px 5px;
         font-size:18px;
+    }
+}
+.tableFooter {
+    color: white;
+    background-color: #e54f60;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    height: 30px;
+    .tableFooter__TH {
+        grid-column: 4;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .tableFooter__TD {
+        padding-left: 11px;
+        font-weight: bold;
+        margin-top: auto;
+        margin-bottom: auto;
     }
 }
 </style>

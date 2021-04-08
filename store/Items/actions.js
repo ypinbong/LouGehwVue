@@ -17,7 +17,7 @@ export default{
         })
         .catch(err => err);
     },
-    async addNewItem({ commit },{ name, barcode, description, supid, price, quantity }) {  
+    async addNewItem({ commit },{ name, barcode, description, supName, price, quantity }) {  
         return await axios({
             method: "POST",
             url: `${this.$axios.defaults.baseURL}/items/list`,
@@ -28,7 +28,7 @@ export default{
                 name,
                 barcode,
                 description,
-                supid,
+                supName,
                 price,
                 quantity,
             }
@@ -41,7 +41,7 @@ export default{
         })
         .catch(err => {console.log("addNewItemError",err);});
     },
-    async editItem({ commit }, { id, name, barcode, description, supid,  price, quantity, itemStatus }) {
+    async editItem({ commit }, { id, name, barcode, description, supName,  price, quantity }) {
         return await axios({
             method: "PATCH",
             url: `${this.$axios.defaults.baseURL}/items/list/${id}`,
@@ -53,17 +53,15 @@ export default{
                 name,
                 barcode,
                 description,
-                supid,
+                supName,
                 price,
                 quantity,
-                itemStatus
             }
             })
             .then(res => {
                 // console.log("supnew", res);
                 commit("editItem", res.data.itemsList);
                 return res.data;
-                
             })
             .catch(err => err);
     }

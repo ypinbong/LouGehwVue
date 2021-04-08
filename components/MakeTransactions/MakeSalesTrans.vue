@@ -52,7 +52,7 @@
                         readonly
                         ></b-form-input>
                     </b-col>
-					<!-- // ANCHOR - Item Input Search -->
+					<!-- // ?ANCHOR - Item Input Search -->
                     <label class="ml-2" for="itemInput">Item:</label>
                     <b-col sm="3" class="form-inline">
                         <b-form-input
@@ -68,7 +68,7 @@
                             :key="itemsList.id"
                             :value="itemsList.name"
                             >
-                                ID#: {{itemsList.id}} | Name: {{ itemsList.name }} | Price: Php {{ itemsList.price }}
+                                ID#: {{itemsList.id}} | Name: {{ itemsList.name }} | Price: Php {{ itemsList.price }}.00
                             </option>
                         </b-form-datalist>
                     </b-col>
@@ -98,33 +98,45 @@
             </b-container>
         </div>
         <div class="PendingItemsTable">
-            <table class="table mt-5">
-                <thead>
-                    <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(addedItem, i) in list" :key="i">
-                        <th scope="row">{{ ++i }}</th>
-                        <td>{{ addedItem.id }}</td>
-                        <td>{{ addedItem.name }}</td>
-                        <td>{{ addedItem.selectedQuantity }}</td>
-                        <td>{{ addedItem.price }}</td>
-                        <td>{{ addedItem.subtotal }}</td>
-                    </tr>
-                </tbody>
-				<tfoot>
-					<th scope="row">Grand Total: </th>
-					<td> {{grandTotal}} </td>
-				</tfoot>
-            </table>
+            <b-table
+            id="PendingTable"
+            :items="pendingItems"
+            show-empty
+            :fields="fields"
+            :key="customersState.custid"
+            fixed
+            >
+            <template #cell(price)="data">
+                Php {{ data.item.price }}.00
+            </template>
+            <template #cell(subTotal)="data">
+                Php {{ data.item.subTotal }}.00
+            </template>
+            <template v-slot:cell(action)="row">
+                <b-button
+                @click="edit(row.item, row.index)"
+                size="sm"
+                class="editBtn mr-2"
+                variant="none"
+                pill
+                >
+                    <i class="fas fa-trash-alt"></i>
+                </b-button>
+            </template>
+        </b-table>
+        <b-col class="tableFooter">
+            <th class="tableFooter__TH" scope="row">Grand Total: </th>
+            <td class="tableFooter__TD"> Php {{grandTotal}}.00 </td>
+		</b-col>
         </div>
+        <b-button
+        @click="addPendingToDB"
+        size="sm"
+        class="my-5"
+        variant="danger"
+        >
+            <i class="fas fa-cash-register"></i> Checkout
+        </b-button>
     </div>
 </template>
 
@@ -137,16 +149,25 @@ export default {
         return { 
             customersList:[],
             itemsList: [], 
-            selectedItem: [],
-            name:'',
-            price:'',
+			pendingItems: [],
 			custid:'',
-			selectedQuantity: '',
-			addedItems: [],
-			subTotal: '',
-			addedItem: '',
 			currentTotal: '0',
 			grandTotal: '0',
+            id:'',
+            name:'',
+            custName:'',
+            quantity:'',
+            price:'',
+			selectedQuantity: '',
+			subTotal: '',
+            fields: [
+                { key: 'id', label: 'Item ID', sortable: true },
+                { key: 'name', label: 'Name', sortable: true },
+                { key: 'selectedQuantity', label: 'Qty', sortable: true },
+                { key: 'price', label: 'Price', sortable: true },
+                { key: 'subTotal', label: 'Sub Total', sortable: true },
+                { key: 'action', label: 'Action', sortable: false },
+            ],
         }
     },
     beforeCreate() {
@@ -174,8 +195,13 @@ export default {
         );
 			this.custid = selectedCustomer.custid;
         },
+        calcSubTotal() {
+			this.subTotal = this.selectedQuantity * this.price;
+
+			console.log("Subtotal", this.subTotal);
+		},
 		addToPendingItems() {
-			this.addedItems.push({
+			this.pendingItems.push({
 				id: this.id,
 				name: this.name,
 				selectedQuantity: this.selectedQuantity,
@@ -190,32 +216,50 @@ export default {
 			(this.id = ""),
 			(this.name = ""),
 			(this.selectedQuantity = ""),
-			(this.price = ""),
+			(this.price = "");
 			(this.subTotal = "");
 		},
 		clearpending() {
-			this.addedItems = "";
+			this.pendingItems = "";
 		},
-		list() {
-			console.log("AddedItems HERE", this.addedItems);
-			return this.addedItems;
-    	},
-		calcSubTotal() {
-			this.subTotal = this.selectedQuantity * this.price;
-			console.log("Subtotal", this.subTotal);
-		},
+        checkoutPendingItems() {
+            this.$store.dispatch("Transactions/AddNewDelivery", {
+                supName: this.supName,
+                deliveryDate: this.deliveryDate,
+                grandTotal: this.grandTotal,
+                id: this.id,
+            })
+        }
     }
 }
 
 </script>
 
 <style lang="scss" scoped>
-form{
+form {
     display: flex !important;
     justify-content: center !important;
     .btn-danger{
         padding:3px 5px 3px 5px;
         font-size:18px;
+    }
+}
+.tableFooter {
+    color: white;
+    background-color: #e54f60;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    height: 30px;
+    .tableFooter__TH {
+        grid-column: 4;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .tableFooter__TD {
+        padding-left: 11px;
+        font-weight: bold;
+        margin-top: auto;
+        margin-bottom: auto;
     }
 }
 </style>

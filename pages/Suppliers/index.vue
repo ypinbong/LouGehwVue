@@ -11,17 +11,19 @@
           />
           <h1 class="text-center mt-3">Suppliers</h1>
           <div>
-            <button class="btn-danger mt-3 px-3 py-2" v-b-modal.modal-1>
+            <button class="btn-danger mt-3 px-3 py-2" v-b-modal.addaSupplierModal>
               Add <i class="fas fa-plus"></i>
             </button>
             <b-modal
             class="modalContainer"
-            id="modal-1"
+            id="addaSupplierModal"
             centered title="Fill in supplier details"
             header-class="justify-content-center"
             no-close-on-backdrop
-            hide-footer>
-              <form action="" method="post">
+            hide-footer
+            @submit.prevent
+            >
+              <form>
                 <div>
                     <img class="mb-3 col-12 text-center" src="undraw_deliveries_131a.svg" alt="" width="200" height="120">
                 </div>
@@ -67,11 +69,12 @@
                 supContact: this.addNewContact,
               })
               .then(res => {
+                this.$store.dispatch("Suppliers/getSuppliers", {});
+                this.$bvModal.hide('addaSupplierModal')
               })
               .catch(err => {
                 console.log(err);
                 this.showAlert(err.response.data.msg, "danger");
-                window.location.reload();
               })
             }
         },

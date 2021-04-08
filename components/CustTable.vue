@@ -18,6 +18,8 @@
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
             :key="customersState.custid"
+            hover
+            responsive
         >
             <template v-slot:cell(action)="row">
                 <b-button
@@ -39,7 +41,7 @@
         ></b-pagination>
          <!-- //* ANCHOR - MODAL FORM FOR EDITING CUSTOMER DETAILS IN THE TABLE -->
         <b-modal
-        id="editingCustomer"
+        id="editingCustomerModal"
         class="modalContainer" 
         centered title="Fill in customer details" header-class="justify-content-center"
         no-close-on-backdrop
@@ -171,7 +173,7 @@ export default {
             this.edited.custContact = item.custContact;
             this.edited.custStatus = item.custStatus;
 
-            this.$bvModal.show('editingCustomer')
+            this.$bvModal.show('editingCustomerModal')
 
         },
         submitChange(){
@@ -183,8 +185,8 @@ export default {
             custStatus: this.edited.custStatus,
             })
             .then(res => {
-            // console.log("err", res);
-            // window.location.reload();
+                this.$store.dispatch('Customers/getCustomers')
+                this.$bvModal.hide('editingCustomerModal')
             })
             .catch(err => {
             console.log(err);

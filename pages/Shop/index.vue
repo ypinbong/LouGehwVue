@@ -13,12 +13,12 @@
           </div>
           <div>
             <!-- // *ANCHOR - Add a New Item Modal -->
-            <button class="btn-danger mt-3 px-3 py-2" v-b-modal.itemModal>
+            <button class="btn-danger mt-3 px-3 py-2" v-b-modal.addanItemModal>
               Add <i class="fas fa-plus"></i>
             </button>
             <b-modal
             class="modalContainer"
-            id="itemModal"
+            id="addanItemModal"
             centered title="Add an Item Form"
             header-class="justify-content-center"
             no-close-on-backdrop
@@ -50,14 +50,24 @@
                     placeholder="Description..."
                     >
                 </div>
-                <div class="form-group">
-                    <input
-                    type="text"
-                    class="form-control"
-                    v-model="addNewSupplier"
-                    placeholder="Supplier ID..."
+                <b-form-input
+                  list="suppliersList"
+                  id="supplierInput"
+                  class="form-group"
+                  placeholder="Enter supplier name"
+                  v-model="addNewSupplier"
+                >
+                  <label>Supplier</label>
+                </b-form-input>
+                <b-form-datalist id="suppliersList">
+                    <option
+                    v-for="suppliersList in suppliersState"
+                    :key="suppliersList.supid"
+                    :value="suppliersList.supName"
                     >
-                </div>
+                        ID#: {{suppliersList.supid}} | Name: {{ suppliersList.supName }} | Contact#: {{ suppliersList.supContact }}
+                    </option>
+                </b-form-datalist>
                 <div class="form-group">
                     <input
                     type="number"
@@ -89,6 +99,9 @@
 </template>
 
 <script>
+
+import { mapState, mapMutations, mapGetters } from 'vuex'
+
     export default {
         data() {
           return {
@@ -100,39 +113,31 @@
             addNewPrice: "",
           }
         },
+        beforeCreate() {
+          this.$store.dispatch('Suppliers/getSuppliers', {})
+        },
+        computed: {
+          ...mapGetters({
+            suppliersState: 'Suppliers/allSuppliers'
+          })
+        },
         methods: {
         async addNewItem(){
             this.$store.dispatch("Items/addNewItem", {
               name: this.addNewName,
               barcode: this.addNewBarcode,
               description: this.addNewDescription,
-              supid: this.addNewSupplier,
+              supName: this.addNewSupplier,
               quantity: this.addNewQuantity,
               price: this.addNewPrice,
             })
             .then(res => {
-              window.location.reload();
+              this.$store.dispatch('Items/getItems', {})
+              this.$bvModal.hide('addanItemModal')
             })
             .catch(err => {
               this.showAlert(err.response.data.msg, "danger");
-              // window.location.reload();
             });
-
-            // try {
-            // const res =  await this.$store.dispatch("Items/addNewItem", {
-            //   name: this.addNewName,
-            //   barcode: this.addNewBarcode,
-            //   description: this.addNewDescription,
-            //   supid: this.addNewSupplier,
-            //   quantity: this.addNewQuantity,
-            //   price: this.addNewPrice,
-            // })
-
-            // console.log(res);
-            // }
-            // catch (e) {
-            //   console.log("Error: ",e);
-            // }
           },
         },
         name: "Shop",

@@ -44,7 +44,7 @@
       no-close-on-backdrop
       hide-footer
     >
-      <form action="" method="post">
+      <form @submit.prevent>
         <div>
           <img
             class="mb-3 col-12 text-center"
@@ -91,15 +91,32 @@
             required
           />
         </div>
+        <label>Supplier</label>
+        <b-form-input
+          type="text"
+          list="suppliersList"
+          id="supplierInput"
+          class="form-control"
+          placeholder="Enter supplier name"
+          v-model="edited.supName"
+          >
+        </b-form-input>
+        <b-form-datalist id="suppliersList">
+            <option
+            v-for="suppliersList in suppliersState"
+            :key="suppliersList.supid"
+            :value="suppliersList.supName"
+            >
+                ID#: {{suppliersList.supid}} | Name: {{ suppliersList.supName }} | Contact#: {{ suppliersList.supContact }}
+            </option>
+        </b-form-datalist>
         <div class="form-group">
-          <label>Supplier's ID:</label>
+          <label>Quantity:</label>
           <input
-            type="text"
+            type="number"
             class="form-control"
-            v-model="edited.supid"
-            placeholder="Enter supplier id"
+            v-model="edited.quantity"
             required
-            readonly
           />
         </div>
         <div class="form-group">
@@ -111,26 +128,6 @@
             required
           />
         </div>
-        <div class="form-group">
-          <label>Quantity:</label>
-          <input
-            type="text"
-            class="form-control"
-            v-model="edited.quantity"
-            required
-          />
-        </div>
-        <b-form-group>
-          <label>Item Status:</label>
-          <b-form-select
-            class="selectEditBtn"
-            id="custStatus"
-            v-model="edited.itemStatus"
-            :options="status"
-            aria-describedby="input-2-live-feedback"
-            data-vv-as="Status"
-          ></b-form-select>
-        </b-form-group>
         <b-row align-h="center">
           <b-col cols="6" class="text-center">
             <button @click="submitChange()" class="btn-danger mt-3 py-2">
@@ -159,39 +156,31 @@ export default {
         { key: 'name', label: 'Name', sortable: true },
         { key: 'barcode', label: 'Barcode#', sortable: true },
         { key: 'description', label: 'Description', sortable: false },
-        { key: 'supid', label: 'Supplier ID', sortable: true },
+        { key: 'supName', label: 'Supplier', sortable: true },
         { key: 'quantity', label: 'Qty', sortable: true },
         { key: 'price', label: 'Price', sortable: true },
-        { key: 'itemStatus', label: 'Item Status', sortable: true },
         { key: 'action', label: 'Action', sortable: false },
-      ],
-      status: [
-        { value: '', text: 'Status...', disabled: true },
-        { value: 'Active', text: 'Active' },
-        { value: 'Inactive', text: 'Inactive' },
       ],
       edited: {
         id: null,
         name: null,
         barcode: null,
         description: null,
-        supid: null,
+        supName: null,
         quantity: null,
         price: null,
-        itemStatus: '',
       },
     }
   },
   beforeCreate() {
     this.$store.dispatch('Items/getItems', {})
+    this.$store.dispatch('Suppliers/getSuppliers', {})
   },
   computed: {
     ...mapGetters({
       itemsState: 'Items/allItems',
+      suppliersState: 'Suppliers/allSuppliers'
     }),
-    // itemsState() {
-    //     return this.$store.state.allItems;
-    // },
     rows() {
       return this.itemsState.length
     },
@@ -209,10 +198,9 @@ export default {
       this.edited.name = item.name
       this.edited.barcode = item.barcode
       this.edited.description = item.description
-      this.edited.supid = item.supid
+      this.edited.supName = item.supName
       this.edited.quantity = item.quantity
       this.edited.price = item.price
-      this.edited.itemStatus = item.itemStatus
 
       this.$bvModal.show('editingItem')
     },
@@ -223,17 +211,17 @@ export default {
           name: this.edited.name,
           barcode: this.edited.barcode,
           description: this.edited.description,
-          supid: this.edited.supid,
+          supName: this.edited.supName,
           quantity: this.edited.quantity,
-          itemStatus: this.edited.itemStatus,
           price: this.edited.price,
         })
         .then((res) => {
           // console.log("err", res);
+          this.$store.dispatch('Items/getItems', {})
+          this.$bvModal.hide('editingItem')
         })
         .catch((err) => {
-          console.log(err)
-          window.location.reload()
+          this.showAlert(err.response.data.msg, "danger");
           //this.showAlert(err.response.data.msg, "danger");
         })
     },
