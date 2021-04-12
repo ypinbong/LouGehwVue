@@ -35,7 +35,11 @@
                     </b-col>
                     <label>Delivery date:</label>
                     <b-col sm="3">
-                        <b-form-input type="date"></b-form-input>
+                        <b-form-input
+                        type="date"
+                        v-model="deliveryDate"
+                        >
+                        </b-form-input>
                     </b-col>
                 </b-form>
             </b-container>
@@ -69,7 +73,7 @@
                             :key="itemsList.id"
                             :value="itemsList.name"
                             >
-                                ID#: {{itemsList.id}} | Name: {{ itemsList.name }} | Price: Php {{ itemsList.price }}.00
+                                ID#: {{itemsList.id}} | Name: {{ itemsList.name }} | In Stock: {{itemsList.quantity}} | Price: Php {{ itemsList.price }}.00
                             </option>
                         </b-form-datalist>
                     </b-col>
@@ -113,7 +117,7 @@
             </template>
             <template v-slot:cell(action)="row">
                 <b-button
-                @click="edit(row.item, row.index)"
+                @click="deletePendingItem(row.item, row.index)"
                 size="sm"
                 class="editBtn mr-2"
                 variant="none"
@@ -129,7 +133,7 @@
             </b-col>
         </div>
         <b-button
-        @click="checkoutPendingItems"
+        @click="pushPendingItems"
         size="sm"
         class="my-5"
         variant="danger"
@@ -158,6 +162,7 @@ export default {
             supName:'',
             quantity:'0',
             price:'0',
+            deliveryDate:'',
             selectedQuantity: '',
             subTotal: '',
             fields: [
@@ -187,6 +192,7 @@ export default {
         );
             this.price = selectedItem.price;
             this.id = selectedItem.id;
+            this.quantity = selectedItem.quantity;
             console.log("heyy", this.suppliersState);
         },
         selectedSuppliers(){
@@ -210,6 +216,9 @@ export default {
             this.grandTotal = this.currentTotal;
             this.clearForm();
         },
+        deletePendingItem(item, index) {
+            this.pendingItems.splice(index, 1);
+        },
         clearForm(){
             (this.id = ''),
             (this.name = ''),
@@ -220,12 +229,16 @@ export default {
         clearPending() {
             this.pendingItems='';
         },
-        checkoutPendingItems() {
-            this.$store.dispatch("Transactions/AddNewDelivery", {
+        pushPendingItems() {
+            this.$store.dispatch("Transactions/addNewDelivery", {
                 supName: this.supName,
                 deliveryDate: this.deliveryDate,
                 grandTotal: this.grandTotal,
-                id: this.id,
+                itemsList: this.pendingItems
+            })
+            .then((res) => {
+                this.clearPending();
+                this.$store.dispatch("Transactions/getDeliveryHistory")
             })
         }
     }

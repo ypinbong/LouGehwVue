@@ -4,7 +4,7 @@
             <h3>Sales Details</h3>
             <b-container>
                 <b-form class="form-inline">
-					<label>ID: </label>
+                    <label>ID: </label>
                     <b-col sm="1" class="form-inline">
                         <b-form-input
                         class="form-control"
@@ -22,7 +22,7 @@
                         id="customerInput"
                         placeholder="Enter customer name"
 						v-model="custName"
-						@change="selectedCustomers"
+                        @change="selectedCustomers"
                         ></b-form-input>
                         <b-form-datalist id="customersList">
                             <option
@@ -61,6 +61,7 @@
                         placeholder="Enter item name"
                         v-model="name"
                         @change="selectedItems"
+                        required
                         ></b-form-input>
                         <b-form-datalist id="itemsList">
                             <option
@@ -68,17 +69,16 @@
                             :key="itemsList.id"
                             :value="itemsList.name"
                             >
-                                ID#: {{itemsList.id}} | Name: {{ itemsList.name }} | Price: Php {{ itemsList.price }}.00
+                                ID#: {{itemsList.id}} | Name: {{ itemsList.name }} | In stock: {{itemsList.quantity}} | Price: Php {{ itemsList.price }}.00
                             </option>
                         </b-form-datalist>
                     </b-col>
-
                     <label>Price(Php): </label>
                     <b-col sm="2" class="form-inline">
                         <b-form-input
                         class="form-control"
                         type="text"
-                        placeholder=""
+                        placeholder="0"
                         v-model="price"
                         readonly
                         ></b-form-input>
@@ -112,9 +112,9 @@
             <template #cell(subTotal)="data">
                 Php {{ data.item.subTotal }}.00
             </template>
-            <template v-slot:cell(action)="row">
+            <template #cell(action)="row">
                 <b-button
-                @click="edit(row.item, row.index)"
+                @click="deletePendingItem(row.item, row.index)"
                 size="sm"
                 class="editBtn mr-2"
                 variant="none"
@@ -126,11 +126,11 @@
         </b-table>
         <b-col class="tableFooter">
             <th class="tableFooter__TH" scope="row">Grand Total: </th>
-            <td class="tableFooter__TD"> Php {{grandTotal}}.00 </td>
+            <td class="tableFooter__TD" v-model="grandTotal"> Php {{grandTotal}}.00 </td>
 		</b-col>
         </div>
         <b-button
-        @click="addPendingToDB"
+        @click="pushPendingItems"
         size="sm"
         class="my-5"
         variant="danger"
@@ -150,6 +150,7 @@ export default {
             customersList:[],
             itemsList: [], 
 			pendingItems: [],
+            salesDetails: [],
 			custid:'',
 			currentTotal: '0',
 			grandTotal: '0',
@@ -187,6 +188,7 @@ export default {
         );
             this.price = selectedItem.price;
 			this.id = selectedItem.id;
+            this.quantity = selectedItem.quantity;
             // console.log("heyy", this.customersState);
         },
 		selectedCustomers(){
@@ -211,7 +213,11 @@ export default {
 			this.currentTotal = (this.currentTotal*1) + (this.subTotal*1);
 			this.grandTotal = this.currentTotal;
 			this.clearForm();
+            console.log('Grand Total: ', grandTotal);
 		},
+        deletePendingItem(item, index) {
+            this.pendingItems.splice(index, 1);
+        },
 		clearForm() {
 			(this.id = ""),
 			(this.name = ""),
@@ -219,16 +225,20 @@ export default {
 			(this.price = "");
 			(this.subTotal = "");
 		},
-		clearpending() {
+		clearPending() {
 			this.pendingItems = "";
 		},
-        checkoutPendingItems() {
-            this.$store.dispatch("Transactions/AddNewDelivery", {
-                supName: this.supName,
-                deliveryDate: this.deliveryDate,
-                grandTotal: this.grandTotal,
-                id: this.id,
+        pushPendingItems() {
+            this.$store.dispatch("Transactions/addNewSales", {
+                itemsList: this.pendingItems,
+                custName: this.custName,
+                grandTotal: this.grandTotal
             })
+            .then((res) => {
+                this.clearPending();
+                this.$store.dispatch("Transactions/getSalesHistory", {})
+            })
+            .catch((err) => err);
         }
     }
 }

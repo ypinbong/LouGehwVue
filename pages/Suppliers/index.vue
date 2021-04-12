@@ -54,6 +54,18 @@
 
 <script>
     export default {
+        head() {
+          return {
+            title: "Suppliers",
+            meta: [
+              {
+                hid: "description",
+                name: "description",
+                content: "Lou Geh App"
+              }
+            ]
+          }
+        },
         data() {
             return{
               addNewName: "",

@@ -17,23 +17,33 @@
             :fields="fields"
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
+            :key="salesState.salesTransactionId"
         >
-            <template v-slot:cell(action)="row">
+            <template #cell(action)="row">
                 <b-button
-                @click="viewItems(row.item, row.index)"
+                @click="row.toggleDetails();orderedItem(row.item); "
                 size="sm"
                 class="viewBtn mr-2"
                 pill
                 >
-                    <i class="fas fa-cubes"></i> view items
+                    <i class="fas fa-eye"></i> 
+                    {{ row.detailsShowing ? 'Hide' : 'Show'}} items
                 </b-button>
+            </template>
+            <template #row-details="row">
+                <b-table
+                id="salesItems"
+                :items="salesState[0].itemsListRows"
+                :fields="itemsListFields"
+                head-variant="light"
+                ></b-table>
             </template>
         </b-table>
         <b-pagination
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
-            aria-controls="my-table"
+            aria-controls="salesHistoryTable"
         ></b-pagination>
     </div>
 </template>
@@ -50,6 +60,7 @@ export default {
             currentPage:1,
             sortBy: 'id',
             sortDesc: false,
+            itemsListRows: [],
             fields: [
                 { key: 'salesTransactionId', label: 'ID', sortable: true },
                 { key: 'grandTotal', label: 'Amount', sortable: true },
@@ -57,6 +68,14 @@ export default {
                 { key: 'date', label: 'Transaction Date', sortable: true },
                 { key: 'action', label: 'Action', sortable: false },
             ],
+            itemsListFields: [
+                { key: 'itemsListRows[0].id', label: 'ID' },
+                { key: 'itemsListRows.name', label: 'Name' },
+                { key: 'itemsListRows.barcode', label: 'Barcode' },
+                { key: 'itemsListRows.quantity', label: 'Qty' },
+                { key: 'itemsListRows.price', label: 'Price' },
+                { key: 'itemsListRows.subTotal', label: 'Sub Total' }
+            ]
         }
     },
     beforeCreate(){
@@ -75,9 +94,19 @@ export default {
                 this.salesState = await this.$store('Transactions/salesState')
                 .search(this.q)
                 .fetch()
-            }
+                console.log("Some", this.salesState);
+            },
         },
+     
+        
     methods: {
+            orderedItem(item) {
+      // console.log("here", item.product_orders);
+      console.log("item", item.itemsListRows[0].id);
+
+
+    //   this.ordered.productOrdered = item.product_orders;
+    }
         
     }
 }
@@ -85,5 +114,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    td{
+        color: black !important;
+    }
 </style>

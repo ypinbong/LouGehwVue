@@ -37,22 +37,24 @@ export default{
         //     // console.log("testCustomer", res.data.view);
         //     // return res.data;
         // })
+        // .catch(err => err)
+
         try {
-         const res=   await axios({
-                method: "POST",
-                url: `${this.$axios.defaults.baseURL}/customers/list`,
-                // headers: {
-                //     Authorization: `Bearer ${SecretKey}`
-                // }
-                data: {
-                    custName,
-                    custContact,
-                    custAddress,
-                    custStatus
-                }
-            })
-            console.log('wee',res);
-           return res;
+            const res=   await axios({
+                    method: "POST",
+                    url: `${this.$axios.defaults.baseURL}/customers/list`,
+                    // headers: {
+                    //     Authorization: `Bearer ${SecretKey}`
+                    // }
+                    data: {
+                        custName,
+                        custContact,
+                        custAddress,
+                        custStatus
+                    }
+                })
+                console.log('wee',res);
+            return res;
         } catch (e) {
             console.log("Error: ",e);
         }

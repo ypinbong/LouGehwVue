@@ -53,34 +53,46 @@
 </template>
 
 <script>
-    export default {
-      data() {
-        return{
-          addNewName: "",
-          addNewAddress: "",
-          addNewContact: "",
-        }
-      },
-      methods: {
-          addNewCustomer(){
-              this.$store.dispatch("Customers/addNewCustomer", {
-                custName: this.addNewName,
-                custAddress: this.addNewAddress,
-                custContact: this.addNewContact,
-              })
-              .then(res => {
-              this.$store.dispatch('Customers/getCustomers')
-              this.$bvModal.hide('addaNewCustomerModal')
-              })
-              .catch(err => {
-                console.log("err", err);
-                this.showAlert(err.response.data.msg, "danger");
-              });
-          },
-      },
-        layout: "default",
-        name: "Customers"
-    };
+  export default {
+    head() {
+      return {
+        title: "Customers",
+        meta: [
+          {
+            hid: "description",
+            name: "description",
+            content: "Lou Geh App"
+          }
+        ]
+      }
+    },
+    data() {
+      return{
+        addNewName: "",
+        addNewAddress: "",
+        addNewContact: "",
+      }
+    },
+    methods: {
+        addNewCustomer(){
+            this.$store.dispatch("Customers/addNewCustomer", {
+              custName: this.addNewName,
+              custAddress: this.addNewAddress,
+              custContact: this.addNewContact,
+            })
+            .then(res => {
+            this.$store.dispatch('Customers/getCustomers')
+            this.$bvModal.hide('addaNewCustomerModal')
+            })
+            .catch(err => {
+              console.log("err", err);
+              this.showAlert(err.response.data.msg, "danger");
+            });
+        },
+    },
+      layout: "default",
+      name: "Customers"
+  };
 </script>
 
 <style lang="scss" scoped>

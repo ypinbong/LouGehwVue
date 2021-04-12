@@ -103,6 +103,18 @@
 import { mapState, mapMutations, mapGetters } from 'vuex'
 
     export default {
+        head() {
+          return {
+            title: "Products",
+            meta: [
+              {
+                hid: "description",
+                name: "description",
+                content: "Lou Geh App"
+              }
+            ]
+          }
+        },
         data() {
           return {
             addNewName: "",

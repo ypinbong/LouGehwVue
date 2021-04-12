@@ -19,15 +19,20 @@
             :sort-desc.sync="sortDesc"
             :key="deliveriesState.deliveryTransactionId"
         >
-            <template v-slot:cell(action)="row">
+            <template #cell(action)="row">
                 <b-button
-                @click="viewItems(row.item, row.index)"
+                @click="row.toggleDetails"
                 size="sm"
                 class="viewBtn mr-2"
                 pill
                 >
-                    <i class="fas fa-cubes"></i> view items
+                    <i class="fas fa-eye"></i> {{ row.detailsShowing ? 'Hide' : 'Show'}} items
                 </b-button>
+            </template>
+            <template #row-details="row">
+                <b-table
+                id="salesItems"
+                ></b-table>
             </template>
         </b-table>
         <b-pagination

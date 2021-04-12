@@ -12,14 +12,15 @@ export default{
         })
         .catch(err => err);
     },
-    async addNewDelivery({ commit },{ grandTotal, supid, deliveryDate }) {
+    async addNewDelivery({ commit },{ grandTotal, supName, deliveryDate, itemsList }) {
         return await axios({
             method: "POST",
             url: `${this.$axios.defaults.baseURL}/transaction/delivery`,
             data: {
+                supName,
+                deliveryDate,
                 grandTotal,
-                supid,
-                deliveryDate
+                itemsList
             }
         })
         .then(res => {
@@ -38,14 +39,14 @@ export default{
         })
         .catch(err => err);
     },
-    async addNewSales({ commit },{ grandTotal, custid, date }) {
+    async addNewSales({ commit },{ grandTotal, custName, itemsList }) {
         return await axios({
             method: "POST",
             url: `${this.$axios.defaults.baseURL}/transaction/sales`,
             data: {
+                custName,
                 grandTotal,
-                custid,
-                date
+                itemsList
             }
         })
         .then(res => {

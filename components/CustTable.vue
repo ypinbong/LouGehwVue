@@ -187,9 +187,13 @@ export default {
             .then(res => {
                 this.$store.dispatch('Customers/getCustomers')
                 this.$bvModal.hide('editingCustomerModal')
+
+                if (res == "Error: Request failed with status code 406") {
+                    alert("Error: Fill in all the form!")
+                }
             })
             .catch(err => {
-            console.log(err);
+            console.log('Jojo', err);
             //this.showAlert(err.response.data.msg, "danger");
             });
         },

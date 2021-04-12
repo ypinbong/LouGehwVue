@@ -50,6 +50,18 @@
 
 <script>
 export default {
+    head() {
+      return {
+        title: "Transactions",
+        meta: [
+          {
+            hid: "description",
+            name: "description",
+            content: "Lou Geh App"
+          }
+        ]
+      }
+    },
     name: "Transactions",
     data() {
     return {

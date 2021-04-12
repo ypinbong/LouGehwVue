@@ -54,6 +54,18 @@ import MakeSalesTrans from '~/components/MakeTransactions/MakeSalesTrans.vue'
 import { BIcon, BIconArrowUp } from 'bootstrap-vue'
 
 export default {
+  head() {
+    return {
+      title: "Create a Transaction",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "Lou Geh App"
+        }
+      ]
+    }
+  },
   data() {
     return {
       selected: '',
