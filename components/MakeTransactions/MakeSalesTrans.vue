@@ -126,7 +126,7 @@
         </b-table>
         <b-col class="tableFooter">
             <th class="tableFooter__TH" scope="row">Grand Total: </th>
-            <td class="tableFooter__TD" v-model="grandTotal"> Php {{grandTotal}}.00 </td>
+            <td class="tableFooter__TD"> Php {{grandTotal}}.00 </td>
 		</b-col>
         </div>
         <b-button
@@ -213,7 +213,7 @@ export default {
 			this.currentTotal = (this.currentTotal*1) + (this.subTotal*1);
 			this.grandTotal = this.currentTotal;
 			this.clearForm();
-            console.log('Grand Total: ', grandTotal);
+            // console.log('Grand Total: ', grandTotal);
 		},
         deletePendingItem(item, index) {
             this.pendingItems.splice(index, 1);

@@ -34,8 +34,9 @@ export default{
             }
         })
         .then(res => {
-            console.log("addNewItemRes",res);
             commit("addNewItem", res.data.itemsList);
+            console.log("addNewItemRes", res.data.result);
+            return res.data;
             // console.log("testCustomer", res.data.view);
             // return res.data;
         })

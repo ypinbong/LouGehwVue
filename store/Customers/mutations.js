@@ -6,10 +6,11 @@ export default {
     addNewCustomer(state, customer) {
         state.customersState.push(customer);
     },
-    editCustomer(state) {
-        const index = state.customersState.findIndex();
+    editCustomer(state, editedData) {
+        const index = state.customersState.findIndex(
+            customer => customer.custid == editedData[0].custid
+        )
         state.customersState.splice(index, 1);
-        state.customersState.push(editedData);
-        
+        state.customersState.push(editedData);      
     },
 }

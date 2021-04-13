@@ -21,22 +21,13 @@
         >
             <template #cell(action)="row">
                 <b-button
-                @click="row.toggleDetails();orderedItem(row.item); "
-                size="sm"
-                class="viewBtn mr-2"
-                pill
+                    size="sm"
+                    @click="getItemsList(row.item)"
+                    class="viewBtn mr-2"
+                    pill
                 >
-                    <i class="fas fa-eye"></i> 
-                    {{ row.detailsShowing ? 'Hide' : 'Show'}} items
+                    <i class="fas fa-eye"></i> Show items
                 </b-button>
-            </template>
-            <template #row-details="row">
-                <b-table
-                id="salesItems"
-                :items="salesState[0].itemsListRows"
-                :fields="itemsListFields"
-                head-variant="light"
-                ></b-table>
             </template>
         </b-table>
         <b-pagination
@@ -45,6 +36,23 @@
             :per-page="perPage"
             aria-controls="salesHistoryTable"
         ></b-pagination>
+        <b-modal
+        class="modalContainer"
+        size="lg"
+        :id="itemModal.id"
+        centered title="Fill in customer details"
+        header-class="justify-content-center"
+        no-close-on-backdrop
+        hide-footer
+        >
+            <!-- <pre> {{ itemsList.salesList }} </pre> -->
+            <b-table
+            hover
+            :items="itemsList.salesList"
+            :fields="itemsListFields"
+            head-variant="light"
+            ></b-table>
+        </b-modal>
     </div>
 </template>
 
@@ -60,7 +68,12 @@ export default {
             currentPage:1,
             sortBy: 'id',
             sortDesc: false,
-            itemsListRows: [],
+            itemModal: {
+                id: "item-modal",
+            },
+            itemsList: {
+                salesList: {},
+            },
             fields: [
                 { key: 'salesTransactionId', label: 'ID', sortable: true },
                 { key: 'grandTotal', label: 'Amount', sortable: true },
@@ -69,13 +82,13 @@ export default {
                 { key: 'action', label: 'Action', sortable: false },
             ],
             itemsListFields: [
-                { key: 'itemsListRows[0].id', label: 'ID' },
-                { key: 'itemsListRows.name', label: 'Name' },
-                { key: 'itemsListRows.barcode', label: 'Barcode' },
-                { key: 'itemsListRows.quantity', label: 'Qty' },
-                { key: 'itemsListRows.price', label: 'Price' },
-                { key: 'itemsListRows.subTotal', label: 'Sub Total' }
-            ]
+                { key: 'id', lable: 'ID' },
+                { key: 'name', lable: 'name' },
+                { key: 'barcode', lable: 'Barcode' },
+                { key: 'quantity', lable: 'Qty' },
+                { key: 'price', lable: 'Price' },
+                { key: 'subTotal', lable: 'Sub Total' },
+            ],
         }
     },
     beforeCreate(){
@@ -97,24 +110,26 @@ export default {
                 console.log("Some", this.salesState);
             },
         },
-     
-        
     methods: {
-            orderedItem(item) {
-      // console.log("here", item.product_orders);
-      console.log("item", item.itemsListRows[0].id);
-
-
-    //   this.ordered.productOrdered = item.product_orders;
-    }
-        
+        getItemsList(item, button) {
+            this.$root.$emit("bv::show::modal", this.itemModal.id, button);
+            this.itemsList.salesList = item.itemsListRows;
+            console.log("click", this.itemsList.salesList);
+        }
     }
 }
-
 </script>
 
-<style lang="scss" scoped>
-    td{
-        color: black !important;
-    }
+<style lang="css" scoped>
+
+@media (min-width: 992px)
+    .modal-lg {
+    max-width: auto !important;
+}
+
+@media (min-width: 576px)
+    .modal-dialog {
+    max-width: auto !important;
+}
+
 </style>

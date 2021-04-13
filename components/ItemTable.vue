@@ -16,6 +16,9 @@
       :fields="fields"
       :key="itemsState.id"
     >
+      <template #cell(price)="data">
+        Php {{ data.item.price }}.00
+      </template>
       <template v-slot:cell(action)="row">
         <b-button
           @click="edit(row.item, row.index)"

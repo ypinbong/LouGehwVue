@@ -51,6 +51,13 @@ header {
   // border-style: none !important;
 }
 
+.modal-content {
+  table {
+    font-family: Arial, Helvetica, sans-serif !important;
+    text-align: center;
+  }
+}
+
 .modalContainer input[type='submit'] {
   padding: 10px 15px !important;
   margin-top: 10px;

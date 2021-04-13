@@ -216,7 +216,7 @@ export default {
             this.grandTotal = this.currentTotal;
             this.clearForm();
         },
-        deletePendingItem(item, index) {
+        deletePendingItem(index) {
             this.pendingItems.splice(index, 1);
         },
         clearForm(){

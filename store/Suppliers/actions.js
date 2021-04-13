@@ -32,9 +32,9 @@ export default{
         })
         .then(res => {
             console.log(res);
-            commit("addNewSupplier", res.data.suppliersList);
-            // console.log("testCustomer", res.data.view);
-            // return res.data;
+            commit("addNewSupplier", res.data.result);
+            console.log("testCustomer", res.data.result);
+            return res.data;
         })
     },
     async editSupplier({ commit }, { supid, supName, supContact, supAddress, supStatus }) {
@@ -53,11 +53,10 @@ export default{
             }
             })
             .then(res => {
-                // console.log("supnew", res);
-                commit("editSupplier", res.data.suppliersList);
+                console.log("supnew", res.data.result);
+                commit("editSupplier", res.data.result.product);
                 return res.data;
                 
             })
-            .catch(err => err);
     }
 }

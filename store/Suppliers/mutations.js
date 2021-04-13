@@ -6,10 +6,11 @@ export default {
     addNewSupplier(state, supplier) {
         state.suppliersState.push(supplier);
     },
-    editSupplier(state) {
-        const index = state.suppliersState.findIndex();
+    editSupplier(state, editedData) {
+        const index = state.suppliersState.findIndex(
+            supplier => supplier.supid == editedData[0].supid
+        );
         state.suppliersState.splice(index, 1);
         state.suppliersState.push(editedData);
-        
     },
 }

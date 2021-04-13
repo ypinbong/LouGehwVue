@@ -10,7 +10,7 @@ export default{
             // }
         })
         .then(res => {
-            console.log(res);
+            console.log('',res);
             commit("setCustomer", res.data.customersList);
             // console.log("testCustomer", res.data.view);
             // return res.data;
@@ -18,46 +18,46 @@ export default{
         .catch(err => err);
     },
     async addNewCustomer({ commit },{ custName, custAddress, custContact, custStatus }) {
-        // return await axios({
-        //     method: "POST",
-        //     url: `${this.$axios.defaults.baseURL}/customers/list`,
-        //     // headers: {
-        //     //     Authorization: `Bearer ${SecretKey}`
-        //     // }
-        //     data: {
-        //         custName,
-        //         custContact,
-        //         custAddress,
-        //         custStatus
-        //     }
-        // })
-        // .then(res => {
-        //     // console.log(res);
-        //     commit("addNewCustomer", res.data);
-        //     // console.log("testCustomer", res.data.view);
-        //     // return res.data;
-        // })
+        return await axios({
+            method: "POST",
+            url: `${this.$axios.defaults.baseURL}/customers/list`,
+            // headers: {
+            //     Authorization: `Bearer ${SecretKey}`
+            // }
+            data: {
+                custName,
+                custContact,
+                custAddress,
+                custStatus,
+            }
+        })
+        .then(res => {
+            // console.log(res);
+            commit("addNewCustomer", res.data.result);
+            console.log("testCustomer", res.data.result);
+            return res.data;
+        })
         // .catch(err => err)
 
-        try {
-            const res=   await axios({
-                    method: "POST",
-                    url: `${this.$axios.defaults.baseURL}/customers/list`,
-                    // headers: {
-                    //     Authorization: `Bearer ${SecretKey}`
-                    // }
-                    data: {
-                        custName,
-                        custContact,
-                        custAddress,
-                        custStatus
-                    }
-                })
-                console.log('wee',res);
-            return res;
-        } catch (e) {
-            console.log("Error: ",e);
-        }
+        // try {
+        //     const res=   await axios({
+        //             method: "POST",
+        //             url: `${this.$axios.defaults.baseURL}/customers/list`,
+        //             // headers: {
+        //             //     Authorization: `Bearer ${SecretKey}`
+        //             // }
+        //             data: {
+        //                 custName,
+        //                 custContact,
+        //                 custAddress,
+        //                 custStatus
+        //             }
+        //         })
+        //         console.log('wee',res);
+        //     return res;
+        // } catch (e) {
+        //     console.log("Error: ",e);
+        // }
     },
     async editCustomer({ commit }, { custid, custName, custContact, custAddress, custStatus }) {
         return await axios({
@@ -75,11 +75,9 @@ export default{
             }
             })
             .then(res => {
-                // console.log("supnew", res);
-                commit("editCustomer", res.data.customersList);
+                console.log("object", res.data.result);
+                commit("editCustomer", res.data.result.product);
                 return res.data;
-                
             })
-            .catch(err => err);
     }
 }
