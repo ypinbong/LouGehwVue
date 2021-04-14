@@ -7,6 +7,13 @@
       v-model="filter"
       placeholder="Type to search..."
     />
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+      align="right"
+    ></b-pagination>
     <b-table
       id="customer-table"
       :items="customersState"
@@ -18,6 +25,7 @@
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :key="customersState.custid"
+      head-variant="dark"
       responsive
     >
       <template v-slot:cell(action)="row">
@@ -37,6 +45,7 @@
       :total-rows="rows"
       :per-page="perPage"
       aria-controls="my-table"
+      align="right"
     ></b-pagination>
     <!-- //* ANCHOR - MODAL FORM FOR EDITING CUSTOMER DETAILS IN THE TABLE -->
     <b-modal
@@ -191,7 +200,6 @@ export default {
       this.edited.custAddress = item.custAddress
       this.edited.custContact = item.custContact
       this.edited.custStatus = item.custStatus
-
       this.$bvModal.show('editingCustomerModal')
     },
     submitChange() {
@@ -204,6 +212,7 @@ export default {
           custStatus: this.edited.custStatus,
         })
         .then((res) => {
+          console.log('Customer result message', res.result.message)
           this.$bvModal.hide('editingCustomerModal')
           this.showResult(res.result.message, 'success')
           this.$store.dispatch('Customers/getCustomers', {})

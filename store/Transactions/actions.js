@@ -7,7 +7,6 @@ export default{
             url: `${this.$axios.defaults.baseURL}/transaction/delivery`,
         })
         .then(res => {
-            console.log(res);
             commit("setDeliveryHistory", res.data.deliveryList);
         })
         .catch(err => err);
@@ -24,8 +23,9 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
-            commit("addNewDelivery", res.data.deliveryList);
+            commit("addNewDelivery", res.data.result);
+            console.log('Adding Delivery Transaction Result:', res.data);
+            return res.data;
         })
     },
     async getSalesHistory({ commit }) {
@@ -34,7 +34,6 @@ export default{
             url: `${this.$axios.defaults.baseURL}/transaction/sales`,
         })
         .then(res => {
-            console.log(res);
             commit("setSalesHistory", res.data.salesList);
         })
         .catch(err => err);
@@ -50,8 +49,9 @@ export default{
             }
         })
         .then(res => {
-            console.log(res);
-            commit("addNewSales", res.data.salesList);
+            commit("addNewSales", res.data.result);
+            console.log("Adding Sales Transaction Result:", res.data);
+            return res.data;
         })
     },
 }

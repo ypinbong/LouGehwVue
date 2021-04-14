@@ -10,7 +10,6 @@ export default{
             // }
         })
         .then(res => {
-            console.log(res);
             commit("setItems", res.data.itemsList);
             // console.log("testCustomer", res.data.view);
             // return res.data;
@@ -34,13 +33,10 @@ export default{
             }
         })
         .then(res => {
-            commit("addNewItem", res.data.itemsList);
-            console.log("addNewItemRes", res.data.result);
+            commit("addNewItem", res.data.result);
+            console.log("addNewItem", res.data.result);
             return res.data;
-            // console.log("testCustomer", res.data.view);
-            // return res.data;
         })
-        .catch(err => {console.log("addNewItemError",err);});
     },
     async editItem({ commit }, { id, name, barcode, description, supName,  price, quantity }) {
         return await axios({
@@ -60,10 +56,9 @@ export default{
             }
             })
             .then(res => {
-                // console.log("supnew", res);
-                commit("editItem", res.data.itemsList);
+                console.log("Item Edit Result:", res);
+                commit("editItem", res.data.result.product);
                 return res.data;
             })
-            .catch(err => err);
     }
 }

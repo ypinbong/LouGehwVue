@@ -6,6 +6,13 @@
       v-model="filter"
       placeholder="Type to search..."
     />
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+      align="right"
+    ></b-pagination>
     <b-table
       id="supplier-table"
       :items="suppliersState"
@@ -17,6 +24,7 @@
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :key="suppliersState.supid"
+      head-variant="dark"
     >
       <template v-slot:cell(action)="row">
         <b-button
@@ -35,6 +43,7 @@
       :total-rows="rows"
       :per-page="perPage"
       aria-controls="my-table"
+      align="right"
     ></b-pagination>
     <b-modal
       @submit.prevent

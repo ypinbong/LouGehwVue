@@ -51,7 +51,7 @@
     </header>
     <Nuxt />
     <footer class="footer fixed-bottom">
-      Copyright &copy; 2021 Yong Pin L. Bong
+      Copyright &copy; 2021 Lou Geh Supermarket
     </footer>
   </div>
 </template>

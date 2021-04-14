@@ -6,6 +6,13 @@
       v-model="filter"
       placeholder="Type to search..."
     />
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+      align="right"
+    ></b-pagination>
     <b-table
       id="items-table"
       :items="itemsState"
@@ -15,10 +22,9 @@
       show-empty
       :fields="fields"
       :key="itemsState.id"
+      head-variant="dark"
     >
-      <template #cell(price)="data">
-        Php {{ data.item.price }}.00
-      </template>
+      <template #cell(price)="data"> Php {{ data.item.price }}.00 </template>
       <template v-slot:cell(action)="row">
         <b-button
           @click="edit(row.item, row.index)"
@@ -36,10 +42,11 @@
       :total-rows="rows"
       :per-page="perPage"
       aria-controls="my-table"
+      align="right"
     ></b-pagination>
     <!-- // *ANCHOR - Modal for editing item details -->
     <b-modal
-      id="editingItem"
+      id="editingItemModal"
       class="modalContainer"
       centered
       title="Fill in product details"
@@ -102,16 +109,17 @@
           class="form-control"
           placeholder="Enter supplier name"
           v-model="edited.supName"
-          >
+        >
         </b-form-input>
         <b-form-datalist id="suppliersList">
-            <option
+          <option
             v-for="suppliersList in suppliersState"
             :key="suppliersList.supid"
             :value="suppliersList.supName"
-            >
-                ID#: {{suppliersList.supid}} | Name: {{ suppliersList.supName }} | Contact#: {{ suppliersList.supContact }}
-            </option>
+          >
+            ID#: {{ suppliersList.supid }} | Name: {{ suppliersList.supName }} |
+            Contact#: {{ suppliersList.supContact }}
+          </option>
         </b-form-datalist>
         <div class="form-group">
           <label>Quantity:</label>
@@ -182,7 +190,7 @@ export default {
   computed: {
     ...mapGetters({
       itemsState: 'Items/allItems',
-      suppliersState: 'Suppliers/allSuppliers'
+      suppliersState: 'Suppliers/allSuppliers',
     }),
     rows() {
       return this.itemsState.length
@@ -204,8 +212,7 @@ export default {
       this.edited.supName = item.supName
       this.edited.quantity = item.quantity
       this.edited.price = item.price
-
-      this.$bvModal.show('editingItem')
+      this.$bvModal.show('editingItemModal')
     },
     submitChange() {
       this.$store
@@ -219,14 +226,25 @@ export default {
           price: this.edited.price,
         })
         .then((res) => {
-          // console.log("err", res);
+          console.log('Item result message', res.result.message)
+          this.$bvModal.hide('editingItemModal')
+          this.showResult(res.result.message, 'success')
           this.$store.dispatch('Items/getItems', {})
-          this.$bvModal.hide('editingItem')
         })
         .catch((err) => {
-          this.showAlert(err.response.data.msg, "danger");
-          //this.showAlert(err.response.data.msg, "danger");
+          console.log('The Error is this:', err)
+          this.showResult(err.response.data.error, 'danger')
         })
+    },
+    showResult(msg, variant, title) {
+      this.$bvToast.toast(`${msg}`, {
+        title: title,
+        toaster: 'b-toaster-bottom-right',
+        solid: true,
+        variant: variant,
+        appendToast: true,
+        noCloseButton: true,
+      })
     },
   },
 }

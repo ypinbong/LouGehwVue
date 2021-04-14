@@ -10,7 +10,6 @@ export default{
             // }
         })
         .then(res => {
-            console.log('',res);
             commit("setCustomer", res.data.customersList);
             // console.log("testCustomer", res.data.view);
             // return res.data;
@@ -75,7 +74,7 @@ export default{
             }
             })
             .then(res => {
-                console.log("object", res.data.result);
+                console.log("Cust Edit Result:", res);
                 commit("editCustomer", res.data.result.product);
                 return res.data;
             })

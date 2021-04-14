@@ -6,8 +6,10 @@ export default {
     addNewItem(state, item) {
         state.itemsState.push(item);
     },
-    editItem(state) {
-        const index = state.itemsState.findIndex();
+    editItem(state, editedData) {
+        const index = state.itemsState.findIndex(
+            item => item.id == editedData[0].id
+        );
         state.itemsState.splice(index, 1);
         state.itemsState.push(editedData);
         

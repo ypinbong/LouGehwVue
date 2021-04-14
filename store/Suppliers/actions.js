@@ -10,7 +10,6 @@ export default{
             // }
         })
         .then(res => {
-            console.log(res);
             commit("setSupplier", res.data.suppliersList);
             // console.log("testCustomer", res.data.view);
             // return res.data;
@@ -33,7 +32,7 @@ export default{
         .then(res => {
             console.log(res);
             commit("addNewSupplier", res.data.result);
-            console.log("testCustomer", res.data.result);
+            console.log("testSupplier", res.data.result);
             return res.data;
         })
     },

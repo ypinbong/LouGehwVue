@@ -86,8 +86,8 @@
                 <input
                   type="number"
                   class="form-control"
-                  v-model="addNewQuantity"
-                  placeholder="Quantity..."
+                  v-model="addNewPrice"
+                  placeholder="Price..."
                   required
                 />
               </div>
@@ -95,9 +95,8 @@
                 <input
                   type="number"
                   class="form-control"
-                  v-model="addNewPrice"
-                  placeholder="Price..."
-                  required
+                  v-model="addNewQuantity"
+                  placeholder="Quantity..."
                 />
               </div>
               <b-row align-h="center">
@@ -168,6 +167,7 @@ export default {
           this.$store.dispatch('Items/getItems', {})
         })
         .catch((err) => {
+          console.log('CatchError', err)
           this.showResult(err.response.data.error, 'danger')
         })
     },
