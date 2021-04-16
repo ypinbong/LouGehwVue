@@ -3,6 +3,23 @@
     <div class="container py-3" style="min-height: 100vh">
       <div class="container mt-2 mb-2">
         <img
+          v-if="selected === 'Delivery'"
+          class="mt-5"
+          src="undraw_On_the_way_re_swjt.svg"
+          alt=""
+          width="200"
+          height="120"
+        />
+        <img
+          v-else-if="selected === 'Sales'"
+          class="mt-5"
+          src="undraw_personal_finance_tqcd.svg"
+          alt=""
+          width="200"
+          height="120"
+        />
+        <img
+          v-else
           class="mt-5"
           src="undraw_add_post_64nu.svg"
           alt=""
@@ -10,7 +27,9 @@
           height="120"
         />
         <h1 class="text-center my-3">Add a New Transaction</h1>
-        <NuxtLink class="greyLink" to="/transactions"><i class="fas fa-arrow-left"></i> go back to Transactions</NuxtLink>
+        <NuxtLink class="greyLink" to="/transactions"
+          ><i class="fas fa-arrow-left"></i> go back to Transactions</NuxtLink
+        >
       </div>
       <div>
         <b-form-group v-slot="{ ariaDescribedby }">
@@ -56,14 +75,14 @@ import { BIcon, BIconArrowUp } from 'bootstrap-vue'
 export default {
   head() {
     return {
-      title: "Create a Transaction",
+      title: 'Create a Transaction',
       meta: [
         {
-          hid: "description",
-          name: "description",
-          content: "Lou Geh App"
-        }
-      ]
+          hid: 'description',
+          name: 'description',
+          content: 'Lou Geh App',
+        },
+      ],
     }
   },
   data() {
@@ -84,13 +103,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    h3{
-      color: #343a408f;
-    }
-    .custom-control{
-      padding-left: 0;
-    }
-    .greyLink {
-      color: gray;
-    }
+h3 {
+  color: #343a408f;
+}
+.custom-control {
+  padding-left: 0;
+}
+.greyLink {
+  color: gray;
+}
 </style>

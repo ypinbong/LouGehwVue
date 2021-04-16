@@ -88,7 +88,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: "http://172.16.4.211:24",
+    // baseURL: "http://172.16.4.211:24",
+    baseURL: "http://172.16.4.211:28",
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

@@ -27,6 +27,9 @@
       :key="deliveriesState.deliveryTransactionId"
       head-variant="dark"
     >
+      <!-- <template #cell(grandTotal)="row">
+        <b>{{ deliveryList.grandtotal }}</b>
+      </template> -->
       <template #cell(action)="row">
         <b-button
           size="sm"
@@ -68,6 +71,10 @@
           Php {{ data.item.subTotal }}.00
         </template>
       </b-table>
+      <!-- <b-col class="tableFooter">
+        <th class="tableFooter__TH" scope="row">Grand Total:</th>
+        <td class="tableFooter__TD">Php {{ data.item.grandTotal }}.00</td>
+      </b-col> -->
     </b-modal>
   </div>
 </template>
@@ -84,6 +91,7 @@ export default {
       currentPage: 1,
       sortBy: 'id',
       sortDesc: false,
+      grandTotal: '',
       itemModal: {
         id: 'item-modal',
       },
@@ -130,7 +138,12 @@ export default {
       this.$root.$emit('bv::show::modal', this.itemModal.id, button)
       this.itemsList.deliveryList = item.itemsListRows
       console.log('click', this.itemsList.deliveryList)
+      console.log('click2', this.itemsList)
     },
+    // async storeToLocal() {
+    //   this.deliveriesState = await this.$store('Transaction/deliveriesState')
+    //   this.localGrandTotal = this.deliveriesState.grandTotal
+    // },
   },
 }
 </script>
@@ -150,16 +163,16 @@ export default {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   height: 30px;
-  .tableFooter__TH {
-    grid-column: 4;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  .tableFooter__TD {
-    padding-left: 11px;
-    font-weight: bold;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
+}
+.tableFooter__TH {
+  grid-column: 4;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.tableFooter__TD {
+  padding-left: 11px;
+  font-weight: bold;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 </style>

@@ -74,7 +74,7 @@ export default{
             }
             })
             .then(res => {
-                console.log("Cust Edit Result:", res);
+                console.log("Cust Edit Result:", res.data.result);
                 commit("editCustomer", res.data.result.product);
                 return res.data;
             })

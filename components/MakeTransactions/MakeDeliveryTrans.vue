@@ -74,7 +74,7 @@
                 :value="itemsList.name"
               >
                 ID#: {{ itemsList.id }} | Name: {{ itemsList.name }} | In Stock:
-                {{ itemsList.quantity }} | Price: Php {{ itemsList.price }}.00
+                {{ itemsList.quantity }} | Price: Php {{ itemsList.price }}
               </option>
             </b-form-datalist>
           </b-col>

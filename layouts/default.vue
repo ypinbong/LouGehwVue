@@ -5,6 +5,7 @@
         <div class="header__logo">
           <a href="/"><img src="LGlongLogo.png" alt="Lou Geh Logo" /></a>
         </div>
+        <!-- <v-spacer /> -->
         <button
           class="navbar-toggler"
           type="button"
@@ -43,7 +44,9 @@
               >
             </b-nav-item-dropdown>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/">Logout</a>
+              <a class="nav-link" href="/"
+                >Logout <i class="fas fa-sign-out-alt ml-2"></i
+              ></a>
             </li>
           </ul>
         </div>

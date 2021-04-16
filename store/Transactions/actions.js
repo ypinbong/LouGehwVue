@@ -7,6 +7,7 @@ export default{
             url: `${this.$axios.defaults.baseURL}/transaction/delivery`,
         })
         .then(res => {
+            console.log(res);
             commit("setDeliveryHistory", res.data.deliveryList);
         })
         .catch(err => err);
