@@ -73,24 +73,52 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     //nuxtjs-authentication
-    '@nuxtjs/auth-next',
+    // '@nuxtjs/auth-next',
     //@nuxt/content
     '@nuxt/content',
+    //MDB
+    'mdbvue/nuxt',
   ],
-
-  content: {
-    //options
-  },
-
-  auth: {
-    // Options
-  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // baseURL: "http://172.16.4.211:24",
     baseURL: "http://172.16.4.211:28",
   },
+
+  // auth: {
+  //   // Options
+  //   redirect:{
+  //     login: '/shop',
+  //     logout: '/shop',
+  //     // callback: '/',
+  //     home: '/suppliers',
+  //   },
+  //   strategies: {
+  //     local: {
+  //       endpoints: {
+  //         login: { 
+  //           url:'/login',
+  //           method: 'post',
+  //           propertyName: 'token'
+  //         },
+  //         logout: {},
+  //         user: {url:'/customers/list'}
+  //       }
+  //     }
+  //   }
+  // },
+  mdbvue: {
+    icons: true, // FA5
+    roboto: true, // font Roboto
+    css: false, // MDB CSS
+    bootstrap: true // Bootstrap CSS
+  },
+
+  content: {
+    //options
+  },
+
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

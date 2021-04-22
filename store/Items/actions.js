@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export default{
-    async getItems({ commit }) {
+    async getItems({ commit }, {token}) {
         return await axios({
             method: "GET",
             url: `${this.$axios.defaults.baseURL}/items/list`,
-            // headers: {
-            //     Authorization: `Bearer ${SecretKey}`
-            // }
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         .then(res => {
             commit("setItems", res.data.itemsList);
@@ -16,13 +16,13 @@ export default{
         })
         .catch(err => err);
     },
-    async addNewItem({ commit },{ name, barcode, description, supName, price, quantity }) {  
+    async addNewItem({ commit },{ name, barcode, description, supName, price, quantity, token }) {  
         return await axios({
             method: "POST",
             url: `${this.$axios.defaults.baseURL}/items/list`,
-            // headers: {
-            //     Authorization: `Bearer ${SecretKey}`
-            // }
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             data: {
                 name,
                 barcode,
@@ -38,13 +38,13 @@ export default{
             return res.data;
         })
     },
-    async editItem({ commit }, { id, name, barcode, description, supName,  price, quantity }) {
+    async editItem({ commit }, { id, name, barcode, description, supName,  price, quantity, token }) {
         return await axios({
             method: "PATCH",
             url: `${this.$axios.defaults.baseURL}/items/list/${id}`,
-            // headers: {
-            //     Authorization: `Bearer ${SecretKey}`
-            // },
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             data: {
                 id,
                 name,

@@ -184,8 +184,12 @@ export default {
     }
   },
   beforeCreate() {
-    this.$store.dispatch('Items/getItems', {})
-    this.$store.dispatch('Suppliers/getSuppliers', {})
+    this.$store.dispatch('Items/getItems', {
+      token: localStorage.token,
+    })
+    this.$store.dispatch('Suppliers/getSuppliers', {
+      token: localStorage.token,
+    })
   },
   computed: {
     ...mapGetters({
@@ -224,12 +228,15 @@ export default {
           supName: this.edited.supName,
           quantity: this.edited.quantity,
           price: this.edited.price,
+          token: localStorage.token,
         })
         .then((res) => {
           console.log('Item result message', res.result.message)
           this.$bvModal.hide('editingItemModal')
           this.showResult(res.result.message, 'success')
-          this.$store.dispatch('Items/getItems', {})
+          this.$store.dispatch('Items/getItems', {
+            token: localStorage.token,
+          })
         })
         .catch((err) => {
           console.log('The Error is this:', err)

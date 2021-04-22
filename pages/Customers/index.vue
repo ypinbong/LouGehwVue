@@ -87,6 +87,7 @@
 
 <script>
 export default {
+  // middleware: 'auth',
   head() {
     return {
       title: 'Customers',
@@ -107,7 +108,9 @@ export default {
     }
   },
   beforeCreate() {
-    this.$store.dispatch('Customers/getCustomers', {})
+    this.$store.dispatch('Customers/getCustomers', {
+      token: localStorage.token,
+    })
   },
   methods: {
     addNewCustomer() {
@@ -116,11 +119,14 @@ export default {
           custName: this.addNewName,
           custAddress: this.addNewAddress,
           custContact: this.addNewContact,
+          token: localStorage.token,
         })
         .then((res) => {
           this.$bvModal.hide('addaNewCustomerModal')
           this.showResult(res.result.message, 'success')
-          this.$store.dispatch('Customers/getCustomers', {})
+          this.$store.dispatch('Customers/getCustomers', {
+            token: localStorage.token,
+          })
         })
         .catch((err) => {
           console.log('err', err)

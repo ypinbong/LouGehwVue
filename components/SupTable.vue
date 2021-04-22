@@ -160,7 +160,7 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch('Suppliers/getSuppliers', {
-      //SectretKey: locatStorage.SecretKey
+      token: localStorage.token,
     })
   },
   computed: {
@@ -194,13 +194,14 @@ export default {
           supAddress: this.edited.supAddress,
           supContact: this.edited.supContact,
           supStatus: this.edited.supStatus,
+          token: localStorage.token,
         })
         .then((res) => {
           // console.log("err", res);
           this.$bvModal.hide('editingSupplierModal')
           this.showResult(res.result.message, 'success')
           this.$store.dispatch('Suppliers/getSuppliers', {
-            //SectretKey: locatStorage.SecretKey
+            token: locatStorage.token,
           })
         })
         .catch((err) => {

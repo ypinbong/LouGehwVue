@@ -169,10 +169,9 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch('Customers/getCustomers', {
-      // SecretKey: localStorage.SecretKey
+      token: localStorage.token,
     })
-    // this.$store.dispatch("Customers/editCustomer", {
-    // })
+    console.log('Token: ', localStorage.token)
   },
   computed: {
     ...mapGetters({
@@ -210,12 +209,15 @@ export default {
           custAddress: this.edited.custAddress,
           custContact: this.edited.custContact,
           custStatus: this.edited.custStatus,
+          token: localStorage.token,
         })
         .then((res) => {
           console.log('Customer result message', res.result.message)
           this.$bvModal.hide('editingCustomerModal')
           this.showResult(res.result.message, 'success')
-          this.$store.dispatch('Customers/getCustomers', {})
+          this.$store.dispatch('Customers/getCustomers', {
+            token: localStorage.token,
+          })
         })
         .catch((err) => {
           console.log('AHDH', err)

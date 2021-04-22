@@ -104,7 +104,9 @@ export default {
     }
   },
   beforeCreate() {
-    this.$store.dispatch('Suppliers/getSuppliers', {})
+    this.$store.dispatch('Suppliers/getSuppliers', {
+      token: localStorage.token,
+    })
   },
   methods: {
     addNewSupplier() {
@@ -113,11 +115,14 @@ export default {
           supName: this.addNewName,
           supAddress: this.addNewAddress,
           supContact: this.addNewContact,
+          token: localStorage.token,
         })
         .then((res) => {
           this.$bvModal.hide('addaNewSupplierModal')
           this.showResult(res.result.message, 'success')
-          this.$store.dispatch('Suppliers/getSuppliers', {})
+          this.$store.dispatch('Suppliers/getSuppliers', {
+            token: localStorage.token,
+          })
         })
         .catch((err) => {
           console.log(err)

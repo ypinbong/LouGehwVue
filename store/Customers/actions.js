@@ -1,28 +1,30 @@
 import axios from 'axios';
 
 export default{
-    async getCustomers({ commit }) {
+    async getCustomers({ commit }, { token }) {
         return await axios({
             method: "GET",
-            url: `${this.$axios.defaults.baseURL}/customers/list`,
-            // headers: {
-            //     Authorization: `Bearer ${SecretKey}`
-            // }
+            url: `${this.$axios.defaults.baseURL}/customers/list/`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         .then(res => {
             commit("setCustomer", res.data.customersList);
-            // console.log("testCustomer", res.data.view);
-            // return res.data;
+            console.log("token: ", localStorage.token);
+            console.log("Resulta: ", res);
+            return res.data;
         })
         .catch(err => err);
     },
-    async addNewCustomer({ commit },{ custName, custAddress, custContact, custStatus }) {
+    async addNewCustomer({ commit }, { custName, custAddress, custContact, custStatus, token }) {
+        console.log("addNewCustToken: ", token);
         return await axios({
             method: "POST",
             url: `${this.$axios.defaults.baseURL}/customers/list`,
-            // headers: {
-            //     Authorization: `Bearer ${SecretKey}`
-            // }
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             data: {
                 custName,
                 custContact,
@@ -36,45 +38,26 @@ export default{
             console.log("testCustomer", res.data.result);
             return res.data;
         })
-        // .catch(err => err)
-
-        // try {
-        //     const res=   await axios({
-        //             method: "POST",
-        //             url: `${this.$axios.defaults.baseURL}/customers/list`,
-        //             // headers: {
-        //             //     Authorization: `Bearer ${SecretKey}`
-        //             // }
-        //             data: {
-        //                 custName,
-        //                 custContact,
-        //                 custAddress,
-        //                 custStatus
-        //             }
-        //         })
-        //         console.log('wee',res);
-        //     return res;
-        // } catch (e) {
-        //     console.log("Error: ",e);
-        // }
     },
-    async editCustomer({ commit }, { custid, custName, custContact, custAddress, custStatus }) {
+    async editCustomer({ commit }, { custid, custName, custContact, custAddress, custStatus, token }) {
+        console.log("editCustToken: ", token);
         return await axios({
             method: "PATCH",
             url: `${this.$axios.defaults.baseURL}/customers/list/${custid}`,
-            // headers: {
-            //     Authorization: `Bearer ${SecretKey}`
-            // },
+            headers: {
+                Authorization: `Bearer ${token}`
+                // "token": "eyJhbGciOiJIUzI1NiJ9.YWRtaW4.23a2LfcEJ7pbe5mqaW8cJ7kPr_e6jI3JLb9gXSf2h_k"
+            },
             data: {
                 custid,
                 custName,
                 custAddress,
                 custContact,
-                custStatus
+                custStatus,
             }
             })
             .then(res => {
-                console.log("Cust Edit Result:", res.data.result);
+                console.log("Cust Edit Result:", res);
                 commit("editCustomer", res.data.result.product);
                 return res.data;
             })

@@ -142,8 +142,9 @@ export default {
     }
   },
   beforeCreate() {
-    this.$store.dispatch('Suppliers/getSuppliers', {})
-    this.$store.dispatch('Items/getItems', {})
+    this.$store.dispatch('Suppliers/getSuppliers', {
+      token: localStorage.token,
+    })
   },
   computed: {
     ...mapGetters({
@@ -160,11 +161,14 @@ export default {
           supName: this.addNewSupplier,
           quantity: this.addNewQuantity,
           price: this.addNewPrice,
+          token: localStorage.token,
         })
         .then((res) => {
           this.$bvModal.hide('addaNewItemModal')
           this.showResult(res.result.message, 'success')
-          this.$store.dispatch('Items/getItems', {})
+          this.$store.dispatch('Items/getItems', {
+            token: localStorage.token,
+          })
         })
         .catch((err) => {
           console.log('CatchError', err)

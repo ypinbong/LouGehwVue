@@ -172,9 +172,15 @@ export default {
     }
   },
   beforeCreate() {
-    this.$store.dispatch('Items/getItems', {})
-    this.$store.dispatch('Suppliers/getSuppliers', {})
-    this.$store.dispatch('Transactions/getDeliveryHistory', {})
+    this.$store.dispatch('Items/getItems', {
+      token: localStorage.token,
+    })
+    this.$store.dispatch('Suppliers/getSuppliers', {
+      token: localStorage.token,
+    })
+    this.$store.dispatch('Transactions/getDeliveryHistory', {
+      token: localStorage.token,
+    })
   },
   computed: {
     ...mapGetters({
@@ -233,11 +239,14 @@ export default {
           deliveryDate: this.deliveryDate,
           grandTotal: this.grandTotal,
           itemsList: this.pendingItems,
+          token: localStorage.token,
         })
         .then((res) => {
           this.clearPending()
           this.showResult(res.result.message, 'success')
-          this.$store.dispatch('Transactions/getDeliveryHistory')
+          this.$store.dispatch('Transactions/getDeliveryHistory', {
+            token: localStorage.token,
+          })
         })
         .catch((err) => {
           console.log('Adding new Trans Error:', err)

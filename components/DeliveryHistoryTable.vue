@@ -116,8 +116,12 @@ export default {
     }
   },
   beforeCreate() {
-    this.$store.dispatch('Transactions/getDeliveryHistory', {})
-    this.$store.dispatch('Suppliers/getSuppliers', {})
+    this.$store.dispatch('Transactions/getDeliveryHistory', {
+      token: localStorage.token,
+    })
+    this.$store.dispatch('Suppliers/getSuppliers', {
+      token: localStorage.token,
+    })
   },
   computed: {
     ...mapGetters({

@@ -1,7 +1,8 @@
 //Variables
 $btnColorLight: #e66161;
-$btnColor: #e54f60;
+$btnColor: #f34e62;
 $btnHover: white;
+$btnDisabled: #e6e6e6;
 
 @mixin btnEff {
   display: inline-block;
@@ -34,6 +35,14 @@ $btnHover: white;
     @include btnEff();
     border-style: outset;
   }
+}
+
+.btn-danger.disabled,
+.btn-danger:disabled {
+  color: #fff;
+  background-color: $btnDisabled !important;
+  border-color: transparent !important;
+  border-style: solid;
 }
 
 .editBtn {

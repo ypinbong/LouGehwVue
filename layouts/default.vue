@@ -44,7 +44,7 @@
               >
             </b-nav-item-dropdown>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/"
+              <a class="nav-link" href="/" @click="logoutUser()"
                 >Logout <i class="fas fa-sign-out-alt ml-2"></i
               ></a>
             </li>
@@ -58,5 +58,32 @@
     </footer>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {}
+  },
+  computed: {},
+  methods: {
+    logoutUser() {
+      // ;(localStorage.token = undefined), (localStorage.message = undefined)
+      localStorage.removeItem('token')
+      localStorage.removeItem('message')
+    },
+  },
+}
+</script>
+<style>
+.show > .b-nav-item-dropdown {
+  max-height: 900px;
+  visibility: visible;
+}
 
-<style></style>
+.b-nav-item-dropdown {
+  display: block;
+  max-height: 0;
+  visibility: hidden;
+  transition: all 0.5s ease-in-out;
+  overflow: hidden;
+}
+</style>

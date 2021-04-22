@@ -169,8 +169,12 @@ export default {
     }
   },
   beforeCreate() {
-    this.$store.dispatch('Items/getItems', {})
-    this.$store.dispatch('Customers/getCustomers', {})
+    this.$store.dispatch('Items/getItems', {
+      token: localStorage.token,
+    })
+    this.$store.dispatch('Customers/getCustomers', {
+      token: localStorage.token,
+    })
   },
   computed: {
     ...mapGetters({
@@ -231,11 +235,14 @@ export default {
           itemsList: this.pendingItems,
           custName: this.custName,
           grandTotal: this.grandTotal,
+          token: localStorage.token,
         })
         .then((res) => {
           this.clearPending()
           this.showResult(res.result.message, 'success')
-          this.$store.dispatch('Transactions/getSalesHistory', {})
+          this.$store.dispatch('Transactions/getSalesHistory', {
+            token: localStorage.token,
+          })
         })
         .catch((err) => {
           console.log('The error with wrong or blank inputs:', err)
