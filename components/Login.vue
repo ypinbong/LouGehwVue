@@ -5,7 +5,7 @@
         class="container d-flex justify-content-center align-self-center"
         style="min-height: 100vh"
       >
-        <form class="my-auto" @submit.prevent="userLogin">
+        <form class="my-auto" @submit.prevent>
           <h1 class="mb-5">Welcome to Lou Geh Supermarket</h1>
           <img
             class="mb-5"
@@ -85,6 +85,7 @@ export default {
           this.showResult(err.response.data.error, 'danger')
         })
     },
+    // //Nuxt/auth (unfinished)
     // async userLogin() {
     //   let userName = this.userInfo.username
     //   let password = this.userInfo.password
