@@ -92,6 +92,7 @@ export default {
       sortBy: 'id',
       sortDesc: false,
       grandTotal: '',
+      // isBusy: false,
       itemModal: {
         id: 'item-modal',
       },
@@ -116,11 +117,17 @@ export default {
     }
   },
   beforeCreate() {
+    this.busyState = true
     this.$store.dispatch('Transactions/getDeliveryHistory', {
       token: localStorage.token,
     })
     this.$store.dispatch('Suppliers/getSuppliers', {
       token: localStorage.token,
+    })
+    this.stateBusy = false
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
     })
   },
   computed: {
@@ -141,9 +148,12 @@ export default {
     getItemsList(item, button) {
       this.$root.$emit('bv::show::modal', this.itemModal.id, button)
       this.itemsList.deliveryList = item.itemsListRows
-      console.log('click', this.itemsList.deliveryList)
-      console.log('click2', this.itemsList)
+      // console.log('click', this.itemsList.deliveryList)
+      // console.log('click2', this.itemsList)
     },
+    // busyState() {
+    //   this.isBusy = !this.isBusy
+    // },
     // async storeToLocal() {
     //   this.deliveriesState = await this.$store('Transaction/deliveriesState')
     //   this.localGrandTotal = this.deliveriesState.grandTotal

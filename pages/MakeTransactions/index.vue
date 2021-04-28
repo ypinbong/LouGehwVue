@@ -39,6 +39,7 @@
             :aria-describedby="ariaDescribedby"
             name="Delivery"
             value="Delivery"
+            @change="scrollBot()"
           >
             Delivery
           </b-form-radio>
@@ -48,6 +49,7 @@
             :aria-describedby="ariaDescribedby"
             name="Sales"
             value="Sales"
+            @change="scrollBot()"
           >
             Sales
           </b-form-radio>
@@ -98,6 +100,14 @@ export default {
     MakeSalesTrans,
     BIcon,
     BIconArrowUp,
+  },
+  methods: {
+    scrollBot() {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      })
+    },
   },
 }
 </script>

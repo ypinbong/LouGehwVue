@@ -26,7 +26,6 @@
       :sort-desc.sync="sortDesc"
       :key="salesState.salesTransactionId"
       head-variant="dark"
-      :busy="isBusy"
     >
       <template #cell(action)="row">
         <b-button
@@ -79,7 +78,7 @@ export default {
       currentPage: 1,
       sortBy: 'id',
       sortDesc: false,
-      isBusy: false,
+      // isBusy: false,
       itemModal: {
         id: 'item-modal',
       },
@@ -104,7 +103,7 @@ export default {
     }
   },
   beforeCreate() {
-    this.isBusy = true
+    // this.isBusy = true
     this.$store.dispatch('Transactions/getSalesHistory', {
       token: localStorage.token,
     })
@@ -125,8 +124,8 @@ export default {
       this.salesState = await this.$store('Transactions/salesState')
         .search(this.q)
         .fetch()
-      this.isBusy = true
-      console.log('Some', this.salesState)
+      // this.isBusy = true
+      // console.log('Some', this.salesState)
       // this.isBusy = false
     },
   },
@@ -134,7 +133,7 @@ export default {
     getItemsList(item, button) {
       this.$root.$emit('bv::show::modal', this.itemModal.id, button)
       this.itemsList.salesList = item.itemsListRows
-      console.log('click', this.itemsList.salesList)
+      // console.log('click', this.itemsList.salesList)
     },
   },
 }

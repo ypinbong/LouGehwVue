@@ -127,6 +127,10 @@ export default {
           this.$store.dispatch('Customers/getCustomers', {
             token: localStorage.token,
           })
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth',
+          })
         })
         .catch((err) => {
           console.log('err', err)

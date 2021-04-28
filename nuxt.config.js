@@ -11,19 +11,15 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     script: [
-      {
-        src: "https://code.jquery.com/jquery-3.3.1.min.js"
-      }
-    ],
-    script: [
+      // {
+      //   src: "https://code.jquery.com/jquery-3.3.1.min.js"
+      // },
       {
         src: "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      }
-    ],
-    script: [
-      {
-        src: "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      }
+      },
+      // {
+      //   src: "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      // }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     link: [
@@ -77,7 +73,7 @@ export default {
     //@nuxt/content
     '@nuxt/content',
     //MDB
-    'mdbvue/nuxt',
+    // 'mdbvue/nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -109,12 +105,12 @@ export default {
   //     }
   //   }
   // },
-  mdbvue: {
-    icons: true, // FA5
-    roboto: true, // font Roboto
-    css: false, // MDB CSS
-    bootstrap: true // Bootstrap CSS
-  },
+  // mdbvue: {
+  //   icons: true, // FA5
+  //   roboto: true, // font Roboto
+  //   css: false, // MDB CSS
+  //   bootstrap: true // Bootstrap CSS
+  // },
 
   content: {
     //options

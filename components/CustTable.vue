@@ -6,12 +6,13 @@
       type="search"
       v-model="filter"
       placeholder="Type to search..."
+      @change="scrollBot()"
     />
     <b-pagination
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="my-table"
+      aria-controls="customer-table"
       align="right"
     ></b-pagination>
     <b-table
@@ -25,6 +26,7 @@
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :key="customersState.custid"
+      :busy="busyState"
       head-variant="dark"
       responsive
     >
@@ -34,6 +36,7 @@
           size="sm"
           class="editBtn mr-2"
           variant="none"
+          aria-label="editButton"
           pill
         >
           <i class="fas fa-pencil-alt"></i>
@@ -44,7 +47,7 @@
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="my-table"
+      aria-controls="customer-table"
       align="right"
     ></b-pagination>
     <!-- //* ANCHOR - MODAL FORM FOR EDITING CUSTOMER DETAILS IN THE TABLE -->
@@ -139,6 +142,7 @@ export default {
       currentPage: 1,
       sortBy: 'id',
       sortDesc: false,
+      // isBusy: false,
       fields: [
         { key: 'custid', label: 'ID', sortable: true },
         { key: 'custName', label: 'Name', sortable: true },
@@ -168,10 +172,12 @@ export default {
     }
   },
   beforeCreate() {
+    this.busyState = true
     this.$store.dispatch('Customers/getCustomers', {
       token: localStorage.token,
     })
-    console.log('Token: ', localStorage.token)
+    // console.log('Token: ', localStorage.token)
+    this.busyState = false
   },
   computed: {
     ...mapGetters({
@@ -192,7 +198,7 @@ export default {
       // this.$bvModal.show("modal-edit");
       // console.log("ahsjkdha")
       // console.log(data);
-      console.log('edit', item)
+      // console.log('edit', item)
 
       this.edited.custid = item.custid
       this.edited.custName = item.custName
@@ -212,18 +218,37 @@ export default {
           token: localStorage.token,
         })
         .then((res) => {
-          console.log('Customer result message', res.result.message)
+          // console.log('Customer result message', res.result.message)
           this.$bvModal.hide('editingCustomerModal')
           this.showResult(res.result.message, 'success')
           this.$store.dispatch('Customers/getCustomers', {
             token: localStorage.token,
           })
+          // window.scrollTo(0, document.body.scrollHeight)
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth',
+          })
+          // window.scrollTo({
+          //   top: selectedFrame.offsetTop,
+          //   left: 0,
+          //   behavior: 'smooth',
+          // })
         })
         .catch((err) => {
-          console.log('AHDH', err)
+          // console.log('AHDH', err)
           this.showResult(err.response.data.error, 'danger')
         })
     },
+    scrollBot() {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      })
+    },
+    // busyState() {
+    //   this.isBusy = !this.isBusy
+    // },
     showResult(msg, variant, title) {
       this.$bvToast.toast(`${msg}`, {
         title: title,

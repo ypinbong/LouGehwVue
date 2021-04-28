@@ -99,7 +99,12 @@
               required
             ></b-form-input>
           </b-col>
-          <b-button variant="danger" @click="addToPendingItems"
+          <b-button
+            variant="danger"
+            @click="
+              addToPendingItems()
+              scrollBot()
+            "
             >Add <i class="fas fa-plus"></i
           ></b-button>
         </b-form>
@@ -252,6 +257,12 @@ export default {
           console.log('Adding new Trans Error:', err)
           this.showResult(err.response.data.error, 'danger')
         })
+    },
+    scrollBot() {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      })
     },
     showResult(msg, variant, title) {
       this.$bvToast.toast(`${msg}`, {

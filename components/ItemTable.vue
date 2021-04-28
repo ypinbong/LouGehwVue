@@ -10,7 +10,7 @@
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="my-table"
+      aria-controls="items-table"
       align="right"
     ></b-pagination>
     <b-table
@@ -31,6 +31,7 @@
           size="sm"
           class="editBtn mr-2"
           variant="none"
+          aria-label="editButton"
           pill
         >
           <i class="fas fa-pencil-alt"></i>
@@ -41,7 +42,7 @@
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="my-table"
+      aria-controls="items-table"
       align="right"
     ></b-pagination>
     <!-- // *ANCHOR - Modal for editing item details -->
@@ -207,7 +208,7 @@ export default {
   },
   methods: {
     edit(item, index) {
-      console.log('edit', item)
+      // console.log('edit', item)
 
       this.edited.id = item.id
       this.edited.name = item.name
@@ -231,7 +232,7 @@ export default {
           token: localStorage.token,
         })
         .then((res) => {
-          console.log('Item result message', res.result.message)
+          // console.log('Item result message', res.result.message)
           this.$bvModal.hide('editingItemModal')
           this.showResult(res.result.message, 'success')
           this.$store.dispatch('Items/getItems', {
@@ -239,7 +240,7 @@ export default {
           })
         })
         .catch((err) => {
-          console.log('The Error is this:', err)
+          // console.log('The Error is this:', err)
           this.showResult(err.response.data.error, 'danger')
         })
     },

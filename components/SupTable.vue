@@ -10,7 +10,7 @@
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="my-table"
+      aria-controls="supplier-table"
       align="right"
     ></b-pagination>
     <b-table
@@ -32,6 +32,7 @@
           size="sm"
           class="editBtn mr-2"
           variant="none"
+          aria-label="editButton"
           pill
         >
           <i class="fas fa-pencil-alt"></i>
@@ -42,7 +43,7 @@
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="my-table"
+      aria-controls="supplier-table"
       align="right"
     ></b-pagination>
     <b-modal
@@ -178,7 +179,7 @@ export default {
   },
   methods: {
     edit(item, index) {
-      console.log('edit', item)
+      // console.log('edit', item)
       this.edited.supid = item.supid
       this.edited.supName = item.supName
       this.edited.supAddress = item.supAddress
@@ -205,7 +206,7 @@ export default {
           })
         })
         .catch((err) => {
-          console.log('AHDH', err)
+          // console.log('AHDH', err)
           this.showResult(err.response.data.error, 'danger')
         })
     },
