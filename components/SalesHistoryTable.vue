@@ -2,7 +2,7 @@
   <div class="overflow-auto my-4">
     <!-- // * ANCHOR - Displaying the table -->
     <input
-      class="searchBar mb-3"
+      class="searchBar mt-1"
       type="search"
       v-model="filter"
       placeholder="Type to search..."
@@ -13,6 +13,8 @@
       :per-page="perPage"
       aria-controls="salesHistoryTable"
       align="right"
+      class="mt-1"
+      @change="scrollBot()"
     ></b-pagination>
     <b-table
       id="salesHistoryTable"
@@ -26,7 +28,14 @@
       :sort-desc.sync="sortDesc"
       :key="salesState.salesTransactionId"
       head-variant="dark"
+      empty-text="Fetching data..."
     >
+      <!-- <template #table-busy>
+        <div class="text-center text-secondary my-2">
+          <b-spinner variant="danger" class="align-middle"></b-spinner>
+          <strong>&nbsp;Loading...</strong>
+        </div>
+      </template> -->
       <template #cell(action)="row">
         <b-button
           size="sm"
@@ -78,7 +87,7 @@ export default {
       currentPage: 1,
       sortBy: 'id',
       sortDesc: false,
-      // isBusy: false,
+      // isBusy: true,
       itemModal: {
         id: 'item-modal',
       },
@@ -102,15 +111,18 @@ export default {
       ],
     }
   },
-  beforeCreate() {
-    // this.isBusy = true
-    this.$store.dispatch('Transactions/getSalesHistory', {
+  async beforeCreate() {
+    await this.$store.dispatch('Transactions/getSalesHistory', {
       token: localStorage.token,
     })
-    this.$store.dispatch('Customers/getCustomers', {
+    await this.$store.dispatch('Customers/getCustomers', {
       token: localStorage.token,
     })
     // this.isBusy = false
+    await window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    })
   },
   computed: {
     ...mapGetters({
@@ -133,7 +145,19 @@ export default {
     getItemsList(item, button) {
       this.$root.$emit('bv::show::modal', this.itemModal.id, button)
       this.itemsList.salesList = item.itemsListRows
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      })
+
       // console.log('click', this.itemsList.salesList)
+    },
+    scrollBot() {
+      console.log('didScroll')
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      })
     },
   },
 }

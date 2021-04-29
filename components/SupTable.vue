@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-auto my-4">
     <input
-      class="searchBar mb-3"
+      class="searchBar mt-1"
       type="search"
       v-model="filter"
       placeholder="Type to search..."
@@ -12,6 +12,8 @@
       :per-page="perPage"
       aria-controls="supplier-table"
       align="right"
+      class="mt-1"
+      @change="scrollBot()"
     ></b-pagination>
     <b-table
       id="supplier-table"
@@ -25,7 +27,14 @@
       :sort-desc.sync="sortDesc"
       :key="suppliersState.supid"
       head-variant="dark"
+      empty-text="Fetching data..."
     >
+      <!-- <template #table-busy>
+        <div class="text-center text-secondary my-2">
+          <b-spinner variant="danger" class="align-middle"></b-spinner>
+          <strong>&nbsp;Loading...</strong>
+        </div>
+      </template> -->
       <template v-slot:cell(action)="row">
         <b-button
           @click="edit(row.item, row.index)"
@@ -137,6 +146,7 @@ export default {
       currentPage: 1,
       sortBy: 'id',
       sortDesc: false,
+      // isBusy: true,
       fields: [
         { key: 'supid', label: 'ID', sortable: true },
         { key: 'supName', label: 'Name', sortable: true },
@@ -159,9 +169,14 @@ export default {
       },
     }
   },
-  beforeCreate() {
-    this.$store.dispatch('Suppliers/getSuppliers', {
+  async beforeCreate() {
+    await this.$store.dispatch('Suppliers/getSuppliers', {
       token: localStorage.token,
+    })
+    // this.isBusy = false
+    await window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
     })
   },
   computed: {
@@ -209,6 +224,12 @@ export default {
           // console.log('AHDH', err)
           this.showResult(err.response.data.error, 'danger')
         })
+    },
+    scrollBot() {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      })
     },
     showResult(msg, variant, title) {
       this.$bvToast.toast(`${msg}`, {

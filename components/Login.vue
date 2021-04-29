@@ -65,15 +65,15 @@ export default {
   },
   methods: {
     userLogin() {
-      console.log('username:', this.userInfo.username)
-      console.log('password:', this.userInfo.password)
+      // console.log('username:', this.userInfo.username)
+      // console.log('password:', this.userInfo.password)
       this.$store
         .dispatch('Userlogin/tryToLogTheUserIn', {
           userName: this.userInfo.username,
           password: this.userInfo.password,
         })
         .then((res) => {
-          console.log('Resdasdada:', res)
+          // console.log('Resdasdada:', res)
           // localStorage.message = res.message
           localStorage.token = res.token
           // console.log('hello tanya markova', localStorage.username)
@@ -81,7 +81,7 @@ export default {
           // this.$router.push({ name: 'Customers' })
         })
         .catch((err) => {
-          console.log('AHDH', err)
+          // console.log('AHDH', err)
           this.showResult(err.response.data.error, 'danger')
         })
     },

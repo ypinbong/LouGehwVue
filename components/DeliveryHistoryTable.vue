@@ -2,7 +2,7 @@
   <div class="overflow-auto my-4">
     <!-- // * ANCHOR - Displaying the table -->
     <input
-      class="searchBar mb-3"
+      class="searchBar mt-1"
       type="search"
       v-model="filter"
       placeholder="Type to search..."
@@ -13,6 +13,8 @@
       :per-page="perPage"
       aria-controls="deliveryHistoryTable"
       align="right"
+      class="mt-1"
+      @change="scrollBot()"
     ></b-pagination>
     <b-table
       id="deliveryHistoryTable"
@@ -26,9 +28,16 @@
       :sort-desc.sync="sortDesc"
       :key="deliveriesState.deliveryTransactionId"
       head-variant="dark"
+      empty-text="Fetching data..."
     >
       <!-- <template #cell(grandTotal)="row">
         <b>{{ deliveryList.grandtotal }}</b>
+      </template> -->
+      <!-- <template #table-busy>
+        <div class="text-center text-secondary my-2">
+          <b-spinner variant="danger" class="align-middle"></b-spinner>
+          <strong>&nbsp;Loading...</strong>
+        </div>
       </template> -->
       <template #cell(action)="row">
         <b-button
@@ -92,7 +101,7 @@ export default {
       sortBy: 'id',
       sortDesc: false,
       grandTotal: '',
-      // isBusy: false,
+      // isBusy: true,
       itemModal: {
         id: 'item-modal',
       },
@@ -116,16 +125,15 @@ export default {
       ],
     }
   },
-  beforeCreate() {
-    this.busyState = true
-    this.$store.dispatch('Transactions/getDeliveryHistory', {
+  async beforeCreate() {
+    await this.$store.dispatch('Transactions/getDeliveryHistory', {
       token: localStorage.token,
     })
-    this.$store.dispatch('Suppliers/getSuppliers', {
+    await this.$store.dispatch('Suppliers/getSuppliers', {
       token: localStorage.token,
     })
-    this.stateBusy = false
-    window.scrollTo({
+    // this.isBusy = false
+    await window.scrollTo({
       top: document.body.scrollHeight,
       behavior: 'smooth',
     })
@@ -151,13 +159,16 @@ export default {
       // console.log('click', this.itemsList.deliveryList)
       // console.log('click2', this.itemsList)
     },
-    // busyState() {
-    //   this.isBusy = !this.isBusy
-    // },
     // async storeToLocal() {
     //   this.deliveriesState = await this.$store('Transaction/deliveriesState')
     //   this.localGrandTotal = this.deliveriesState.grandTotal
     // },
+    scrollBot() {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      })
+    },
   },
 }
 </script>

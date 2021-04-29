@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-auto my-4">
     <input
-      class="searchBar mb-3"
+      class="searchBar mt-1"
       type="search"
       v-model="filter"
       placeholder="Type to search..."
@@ -12,6 +12,8 @@
       :per-page="perPage"
       aria-controls="items-table"
       align="right"
+      class="mt-1"
+      @change="scrollBot()"
     ></b-pagination>
     <b-table
       id="items-table"
@@ -23,7 +25,14 @@
       :fields="fields"
       :key="itemsState.id"
       head-variant="dark"
+      empty-text="Fetching data..."
     >
+      <template #table-busy>
+        <div class="text-center text-secondary my-2">
+          <b-spinner small variant="danger" class="align-middle"></b-spinner>
+          <strong>&nbsp;Loading...</strong>
+        </div>
+      </template>
       <template #cell(price)="data"> Php {{ data.item.price }}.00 </template>
       <template v-slot:cell(action)="row">
         <b-button
@@ -163,6 +172,7 @@ export default {
       currentPage: 1,
       sortBy: 'id',
       sortDesc: false,
+      isBusy: true,
       fields: [
         { key: 'id', label: 'ID', sortable: true },
         { key: 'name', label: 'Name', sortable: true },
@@ -184,12 +194,17 @@ export default {
       },
     }
   },
-  beforeCreate() {
-    this.$store.dispatch('Items/getItems', {
+  async beforeCreate() {
+    await this.$store.dispatch('Items/getItems', {
       token: localStorage.token,
     })
-    this.$store.dispatch('Suppliers/getSuppliers', {
+    await this.$store.dispatch('Suppliers/getSuppliers', {
       token: localStorage.token,
+    })
+    // this.isBusy = false
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
     })
   },
   computed: {
@@ -243,6 +258,12 @@ export default {
           // console.log('The Error is this:', err)
           this.showResult(err.response.data.error, 'danger')
         })
+    },
+    scrollBot() {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      })
     },
     showResult(msg, variant, title) {
       this.$bvToast.toast(`${msg}`, {

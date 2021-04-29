@@ -7,3 +7,10 @@
 @import 'layouts/modalCustom';
 @import 'layouts/navBar';
 @import 'layouts/footer';
+@import 'layouts/customPagination';
+
+//Variables
+$btnColorLight: #e66161;
+$btnColor: #f34e62;
+$btnHover: white;
+$btnDisabled: #e6e6e6;

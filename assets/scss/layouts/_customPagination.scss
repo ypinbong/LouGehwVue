@@ -1,0 +1,23 @@
+.page-link {
+  color: #343a40;
+  border-style: inset;
+  &:hover {
+    color: #7e7375;
+  }
+  &:active {
+    border-color: $btnColor;
+    background-color: $btnColorLight;
+    color: #ffffff;
+  }
+}
+.page-item.active .page-link {
+  border-color: $btnColorLight;
+  // background-color: #7e7375;
+  background-color: $btnColor;
+  color: #ffffff;
+  font-weight: bold;
+  // box-shadow: 0 0 0 0.2rem #e6616185;
+}
+.page-link:focus {
+  box-shadow: 0 0 0 0.2rem #e6616185;
+}

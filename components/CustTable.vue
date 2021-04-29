@@ -2,11 +2,10 @@
   <div class="overflow-auto my-4">
     <!-- // * ANCHOR - Displaying the table -->
     <input
-      class="searchBar mb-3"
+      class="searchBar mt-1"
       type="search"
       v-model="filter"
       placeholder="Type to search..."
-      @change="scrollBot()"
     />
     <b-pagination
       v-model="currentPage"
@@ -14,8 +13,11 @@
       :per-page="perPage"
       aria-controls="customer-table"
       align="right"
+      class="mt-1"
+      @change="scrollBot()"
     ></b-pagination>
     <b-table
+      show-empty
       id="customer-table"
       :items="customersState"
       :per-page="perPage"
@@ -26,10 +28,16 @@
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :key="customersState.custid"
-      :busy="busyState"
       head-variant="dark"
       responsive
+      empty-text="Fetching data..."
     >
+      <!-- <template #table-busy>
+        <div class="text-center text-secondary my-2">
+          <b-spinner variant="danger" class="align-middle"></b-spinner>
+          <strong>&nbsp;Loading...</strong>
+        </div>
+      </template> -->
       <template v-slot:cell(action)="row">
         <b-button
           @click="edit(row.item, row.index)"
@@ -142,7 +150,7 @@ export default {
       currentPage: 1,
       sortBy: 'id',
       sortDesc: false,
-      // isBusy: false,
+      // isBusy: true,
       fields: [
         { key: 'custid', label: 'ID', sortable: true },
         { key: 'custName', label: 'Name', sortable: true },
@@ -171,13 +179,16 @@ export default {
       },
     }
   },
-  beforeCreate() {
-    this.busyState = true
-    this.$store.dispatch('Customers/getCustomers', {
+  async beforeCreate() {
+    await this.$store.dispatch('Customers/getCustomers', {
       token: localStorage.token,
     })
+    this.isBusy = false
+    await window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    })
     // console.log('Token: ', localStorage.token)
-    this.busyState = false
   },
   computed: {
     ...mapGetters({
@@ -246,9 +257,6 @@ export default {
         behavior: 'smooth',
       })
     },
-    // busyState() {
-    //   this.isBusy = !this.isBusy
-    // },
     showResult(msg, variant, title) {
       this.$bvToast.toast(`${msg}`, {
         title: title,
