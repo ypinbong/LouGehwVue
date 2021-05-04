@@ -36,17 +36,17 @@
               id="dropdown-1"
               text="Transactions"
             >
-              <b-dropdown-item to="/transactions"
-                >All Transactions</b-dropdown-item
-              >
-              <b-dropdown-item to="/makeTransactions"
-                >Make a Transaction</b-dropdown-item
-              >
+              <b-dropdown-item to="/transactions">
+                All Transactions
+              </b-dropdown-item>
+              <b-dropdown-item to="/makeTransactions">
+                Make a Transaction
+              </b-dropdown-item>
             </b-nav-item-dropdown>
             <li class="nav-item mx-2">
               <a class="nav-link" href="/" @click="logoutUser()"
-                >Logout <i class="fas fa-sign-out-alt ml-2"></i
-              ></a>
+                >Logout <i class="fas fa-sign-out-alt ml-2"></i>
+              </a>
             </li>
           </ul>
         </div>
