@@ -6,10 +6,13 @@
         style="min-height: 100vh"
       >
         <form class="my-auto" @submit.prevent>
-          <h1 class="mb-5">Welcome to Lou Geh Supermarket</h1>
+          <h1 class="mb-5">
+            You're session has expired!<br />
+            Please sign-in to proceed
+          </h1>
           <img
             class="mb-5"
-            src="undraw_shopping_app_flsj.svg"
+            src="undraw_security_o890.svg"
             alt=""
             width="400"
             height="200"
@@ -22,7 +25,6 @@
               placeholder="Username..."
               required
               v-model="userInfo.username"
-              autofocus
             />
           </div>
           <div class="form-row">
@@ -51,6 +53,8 @@
 
 <script>
 export default {
+  auth: false,
+  layout: 'empty',
   data() {
     return {
       userInfo: {
@@ -59,22 +63,16 @@ export default {
       },
     }
   },
-  beforeCreate() {
-    localStorage.clear()
-    // console.log('token sa login:', localStorage.token)
-  },
   computed: {
     isComplete() {
       return this.userInfo.username && this.userInfo.password
     },
   },
   methods: {
-    async userLogin() {
+    userLogin() {
       // console.log('username:', this.userInfo.username)
       // console.log('password:', this.userInfo.password)
-      // if(localStorage.token)
-      console.log('token sa login:', localStorage.token)
-      await this.$store
+      this.$store
         .dispatch('Userlogin/tryToLogTheUserIn', {
           userName: this.userInfo.username,
           password: this.userInfo.password,

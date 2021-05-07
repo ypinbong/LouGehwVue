@@ -12,7 +12,11 @@ export default{
         .then(res => {
             commit("setCustomer", res.data.customersList);
             console.log("token: ", localStorage.token);
-            console.log("Resulta: ", res);
+            console.log("Resulta: ", res.data);
+            /*if(res.data.success===false){
+                localStorage.removeItem('token')
+                this.app.router.push('/login')
+            }*/
             return res.data;
         })
         .catch(err => err);

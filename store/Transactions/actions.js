@@ -12,6 +12,10 @@ export default {
       .then((res) => {
         console.log(res)
         commit('setDeliveryHistory', res.data.deliveryList)
+        if(res.data.success===false){
+          this.app.router.push('/login')
+        }
+        return res.data
       })
       .catch((err) => err)
   },
@@ -47,6 +51,10 @@ export default {
     })
       .then((res) => {
         commit('setSalesHistory', res.data.salesList)
+        if(res.data.success===false){
+          this.app.router.push('/login')
+        }
+        return res.data
       })
       .catch((err) => err)
   },

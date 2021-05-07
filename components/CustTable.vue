@@ -6,6 +6,7 @@
       type="search"
       v-model="filter"
       placeholder="Type to search..."
+      @click="scrollBot()"
     />
     <b-pagination
       v-model="currentPage"
@@ -15,6 +16,7 @@
       align="right"
       class="mt-1"
       @change="scrollBot()"
+      pills
     ></b-pagination>
     <b-table
       show-empty
@@ -32,6 +34,7 @@
       responsive
       empty-text="Fetching data..."
     >
+      <!-- :busy="isBusy" -->
       <!-- <template #table-busy>
         <div class="text-center text-secondary my-2">
           <b-spinner variant="danger" class="align-middle"></b-spinner>
@@ -57,6 +60,7 @@
       :per-page="perPage"
       aria-controls="customer-table"
       align="right"
+      pills
     ></b-pagination>
     <!-- //* ANCHOR - MODAL FORM FOR EDITING CUSTOMER DETAILS IN THE TABLE -->
     <b-modal
@@ -143,6 +147,7 @@
 import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
+  middleware: 'pageValidator',
   data() {
     return {
       filter: '',
@@ -182,19 +187,26 @@ export default {
   async beforeCreate() {
     await this.$store.dispatch('Customers/getCustomers', {
       token: localStorage.token,
+      // credentials: 'include',
     })
+    // if (localStorage.token == undefined) {
+    //   this.$router.push({ path: '/' })
+    // }
+    // console.log("Resulta sa CusTable:");
     this.isBusy = false
-    await window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: 'smooth',
-    })
+    // await window.scrollTo({
+    //   top: document.body.scrollHeight,{
+    //   behavior: 'smooth',
+    // })
     // console.log('Token: ', localStorage.token)
+    // await if()
   },
   computed: {
     ...mapGetters({
       customersState: 'Customers/allCustomers',
     }),
     rows() {
+      // this.customersState = await this.$store('Customers/customersState')
       return this.customersState.length
     },
     async fetch() {
@@ -210,7 +222,7 @@ export default {
       // console.log("ahsjkdha")
       // console.log(data);
       // console.log('edit', item)
-
+      // this.customersState = await this.$store('Customers/customersState')
       this.edited.custid = item.custid
       this.edited.custName = item.custName
       this.edited.custAddress = item.custAddress
@@ -218,38 +230,39 @@ export default {
       this.edited.custStatus = item.custStatus
       this.$bvModal.show('editingCustomerModal')
     },
-    submitChange() {
-      this.$store
-        .dispatch('Customers/editCustomer', {
-          custid: this.edited.custid,
-          custName: this.edited.custName,
-          custAddress: this.edited.custAddress,
-          custContact: this.edited.custContact,
-          custStatus: this.edited.custStatus,
-          token: localStorage.token,
-        })
-        .then((res) => {
-          // console.log('Customer result message', res.result.message)
-          this.$bvModal.hide('editingCustomerModal')
-          this.showResult(res.result.message, 'success')
-          this.$store.dispatch('Customers/getCustomers', {
+    async submitChange() {
+      ;(this.customersState = await this.$store('Customers/customersState')),
+        await this.$store
+          .dispatch('Customers/editCustomer', {
+            custid: this.edited.custid,
+            custName: this.edited.custName,
+            custAddress: this.edited.custAddress,
+            custContact: this.edited.custContact,
+            custStatus: this.edited.custStatus,
             token: localStorage.token,
           })
-          // window.scrollTo(0, document.body.scrollHeight)
-          window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: 'smooth',
+          .then((res) => {
+            // console.log('Customer result message', res.result.message)
+            this.$bvModal.hide('editingCustomerModal')
+            this.showResult(res.result.message, 'success')
+            this.$store.dispatch('Customers/getCustomers', {
+              token: localStorage.token,
+            })
+            // window.scrollTo(0, document.body.scrollHeight)
+            window.scrollTo({
+              top: document.body.scrollHeight,
+              behavior: 'smooth',
+            })
+            // window.scrollTo({
+            //   top: selectedFrame.offsetTop,
+            //   left: 0,
+            //   behavior: 'smooth',
+            // })
           })
-          // window.scrollTo({
-          //   top: selectedFrame.offsetTop,
-          //   left: 0,
-          //   behavior: 'smooth',
-          // })
-        })
-        .catch((err) => {
-          // console.log('AHDH', err)
-          this.showResult(err.response.data.error, 'danger')
-        })
+          .catch((err) => {
+            // console.log('AHDH', err)
+            this.showResult(err.response.data.error, 'danger')
+          })
     },
     scrollBot() {
       window.scrollTo({

@@ -6,6 +6,7 @@
       type="search"
       v-model="filter"
       placeholder="Type to search..."
+      @click="scrollBot()"
     />
     <b-pagination
       v-model="currentPage"
@@ -14,6 +15,7 @@
       aria-controls="deliveryHistoryTable"
       align="right"
       class="mt-1"
+      pills
       @change="scrollBot()"
     ></b-pagination>
     <b-table
@@ -30,6 +32,7 @@
       head-variant="dark"
       empty-text="Fetching data..."
     >
+      <!-- :busy="isBusy" -->
       <!-- <template #cell(grandTotal)="row">
         <b>{{ deliveryList.grandtotal }}</b>
       </template> -->
@@ -56,6 +59,7 @@
       :per-page="perPage"
       aria-controls="deliveryHistoryTable"
       align="right"
+      pills
     ></b-pagination>
     <b-modal
       :id="itemModal.id"
@@ -132,11 +136,11 @@ export default {
     await this.$store.dispatch('Suppliers/getSuppliers', {
       token: localStorage.token,
     })
-    // this.isBusy = false
     await window.scrollTo({
       top: document.body.scrollHeight,
       behavior: 'smooth',
     })
+    this.isBusy = false
   },
   computed: {
     ...mapGetters({

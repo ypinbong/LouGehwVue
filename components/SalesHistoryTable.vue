@@ -6,6 +6,7 @@
       type="search"
       v-model="filter"
       placeholder="Type to search..."
+      @click="scrollBot()"
     />
     <b-pagination
       v-model="currentPage"
@@ -15,6 +16,7 @@
       align="right"
       class="mt-1"
       @change="scrollBot()"
+      pills
     ></b-pagination>
     <b-table
       id="salesHistoryTable"
@@ -53,6 +55,7 @@
       :per-page="perPage"
       aria-controls="salesHistoryTable"
       align="right"
+      pills
     ></b-pagination>
     <b-modal
       class="modalContainer"
@@ -145,10 +148,10 @@ export default {
     getItemsList(item, button) {
       this.$root.$emit('bv::show::modal', this.itemModal.id, button)
       this.itemsList.salesList = item.itemsListRows
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth',
-      })
+      // window.scrollTo({
+      //   top: document.body.scrollHeight,
+      //   behavior: 'smooth',
+      // })
 
       // console.log('click', this.itemsList.salesList)
     },

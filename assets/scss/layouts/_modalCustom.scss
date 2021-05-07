@@ -106,3 +106,9 @@ label {
   margin-left: 10px;
   font-style: oblique;
 }
+
+.form-control {
+  &:focus {
+    box-shadow: 0 0 0 0.2rem #f75a5ab0;
+  }
+}

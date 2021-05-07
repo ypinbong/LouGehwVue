@@ -5,6 +5,7 @@
       type="search"
       v-model="filter"
       placeholder="Type to search..."
+      @click="scrollBot()"
     />
     <b-pagination
       v-model="currentPage"
@@ -14,6 +15,7 @@
       align="right"
       class="mt-1"
       @change="scrollBot()"
+      pills
     ></b-pagination>
     <b-table
       id="items-table"
@@ -53,6 +55,7 @@
       :per-page="perPage"
       aria-controls="items-table"
       align="right"
+      pills
     ></b-pagination>
     <!-- // *ANCHOR - Modal for editing item details -->
     <b-modal
@@ -202,10 +205,10 @@ export default {
       token: localStorage.token,
     })
     // this.isBusy = false
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: 'smooth',
-    })
+    // window.scrollTo({
+    //   top: document.body.scrollHeight,
+    //   behavior: 'smooth',
+    // })
   },
   computed: {
     ...mapGetters({

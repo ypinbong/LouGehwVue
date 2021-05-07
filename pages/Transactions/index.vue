@@ -74,6 +74,14 @@ export default {
       selected: '',
     }
   },
+  async beforeCreate() {
+    await this.$store.dispatch('Transactions/getDeliveryHistory', {
+      token: localStorage.token,
+    })
+    await this.$store.dispatch('Transactions/getSalesHistory', {
+      token: localStorage.token,
+    })
+  },
   methods: {
     scrollBot() {
       window.scrollTo({

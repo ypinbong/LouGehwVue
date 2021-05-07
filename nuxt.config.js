@@ -76,6 +76,10 @@ export default {
     // 'mdbvue/nuxt',
   ],
 
+  // router: {
+  //   middleware: ['auth']
+  // },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // baseURL: "http://172.16.4.211:24",

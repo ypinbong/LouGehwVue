@@ -12,7 +12,10 @@ export default{
         .then(res => {
             commit("setItems", res.data.itemsList);
             // console.log("testCustomer", res.data.view);
-            // return res.data;
+            if(res.data.success===false){
+                this.app.router.push('/login')
+            }
+            return res.data;
         })
         .catch(err => err);
     },

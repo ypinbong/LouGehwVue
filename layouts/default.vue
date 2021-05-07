@@ -3,7 +3,7 @@
     <header class="navigation sticky-top">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="header__logo">
-          <a href="/"><img src="LGlongLogo.png" alt="Lou Geh Logo" /></a>
+          <a href="/error"><img src="LGlongLogo.png" alt="Lou Geh Logo" /></a>
         </div>
         <!-- <v-spacer /> -->
         <button
@@ -44,7 +44,7 @@
               </b-dropdown-item>
             </b-nav-item-dropdown>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/" @click="logoutUser()"
+              <a class="nav-link" @click="logoutUser()"
                 >Logout <i class="fas fa-sign-out-alt ml-2"></i>
               </a>
             </li>
@@ -67,8 +67,11 @@ export default {
   methods: {
     logoutUser() {
       // ;(localStorage.token = undefined), (localStorage.message = undefined)
-      localStorage.removeItem('token')
-      localStorage.removeItem('message')
+      // localStorage.removeItem('token')
+      // localStorage.removeItem('message')
+      localStorage.clear()
+      history.pushState(null, null, null)
+      this.$router.push('/')
     },
   },
 }
@@ -77,6 +80,10 @@ export default {
 .show > .b-nav-item-dropdown {
   max-height: 900px;
   visibility: visible;
+}
+
+.nav-item {
+  cursor: pointer;
 }
 
 .b-nav-item-dropdown {

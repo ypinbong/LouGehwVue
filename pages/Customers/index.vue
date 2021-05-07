@@ -107,8 +107,8 @@ export default {
       addNewContact: '',
     }
   },
-  beforeCreate() {
-    this.$store.dispatch('Customers/getCustomers', {
+  async beforeCreate() {
+    await this.$store.dispatch('Customers/getCustomers', {
       token: localStorage.token,
     })
   },
